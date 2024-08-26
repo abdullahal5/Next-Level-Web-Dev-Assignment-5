@@ -1,0 +1,203 @@
+import { Avatar, Button, Dropdown, MenuProps } from "antd";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+const Links = [
+  { path: "/", name: "Home" },
+  { path: "/meeting-rooms", name: "Meeting Rooms" },
+  { path: "/about", name: "About Us" },
+  { path: "/contact", name: "Contact Us" },
+];
+
+const items: MenuProps['items'] = [
+  {
+    key: "1",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.antgroup.com"
+      >
+        1st menu item
+      </a>
+    ),
+  },
+  {
+    key: "2",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.aliyun.com"
+      >
+        2nd menu item
+      </a>
+    ),
+  },
+  {
+    key: "3",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.luohanacademy.com"
+      >
+        3rd menu item
+      </a>
+    ),
+  },
+];
+
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  return (
+    <nav
+      className={`sticky top-0 z-50 border-b transition-shadow duration-300 ${
+        isScrolled ? "bg-white shadow-md" : "bg-white"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex-shrink-0 flex items-center">
+            <a href="/" className="text-blue-600 text-lg font-bold">
+              MyWebsite
+            </a>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-7">
+            {Links.map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.path}
+                className={`rounded-md text-base font-medium ${
+                  location.pathname === item.path
+                    ? "bg-blue-100 text-blue-600 px-2 py-1"
+                    : "text-zinc-900"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4">
+            <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
+              <Button
+                style={{ border: "none", padding: 2, borderRadius: "100%" }}
+                type="text"
+              >
+                <Avatar
+                  size={45}
+                  src={
+                    "https://i.ibb.co/yPLQsjm/Screenshot-2024-08-13-001037.png"
+                  }
+                />
+              </Button>
+            </Dropdown>
+
+            <div className="lg:block md:block hidden">
+              <div className="flex items-center font-medium">
+                <Link to="/auth">Login</Link> /<Link to="/auth">Register</Link>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="inline-flex items-center justify-center p-2 rounded-md text-blue-600 lg:hidden focus:outline-none"
+              onClick={toggleSidebar}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`fixed inset-0 z-40 bg-gray-800 bg-opacity-75 transition-opacity duration-300 ${
+          isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={closeSidebar}
+      >
+        <div
+          className={`fixed inset-y-0 left-0 w-64 bg-white p-4 transform transition-transform duration-300 ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            type="button"
+            className="text-blue-600 mb-4 focus:outline-none"
+            onClick={closeSidebar}
+          >
+            <svg
+              className="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div className="space-y-3">
+            {Links.map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.path}
+                className={`block border text-blue-600 px-3 py-2 rounded-md text-base font-medium ${
+                  location.pathname === item.path ? "bg-blue-100" : "bg-white"
+                }`}
+                onClick={closeSidebar}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
