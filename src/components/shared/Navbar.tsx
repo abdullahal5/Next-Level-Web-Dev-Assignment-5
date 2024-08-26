@@ -9,7 +9,7 @@ const Links = [
   { path: "/contact", name: "Contact Us" },
 ];
 
-const items: MenuProps['items'] = [
+const items: MenuProps["items"] = [
   {
     key: "1",
     label: (
@@ -79,9 +79,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="text-blue-600 text-lg font-bold">
-              MyWebsite
-            </a>
+            <Link to="/" className="text-lg font-bold flex items-center">
+              <img
+                src="https://i.ibb.co/5nFKFkn/images-removebg-preview.png"
+                className="w-10"
+                alt=""
+              />
+              Room <span className="text-blue-600 pl-2">Aura</span>
+            </Link>
           </div>
 
           <div className="hidden lg:flex items-center gap-7">
@@ -101,7 +106,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
+            {/* <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
               <Button
                 style={{ border: "none", padding: 2, borderRadius: "100%" }}
                 type="text"
@@ -113,11 +118,20 @@ const Navbar = () => {
                   }
                 />
               </Button>
-            </Dropdown>
+            </Dropdown> */}
 
             <div className="lg:block md:block hidden">
               <div className="flex items-center font-medium">
-                <Link to="/auth">Login</Link> /<Link to="/auth">Register</Link>
+                <Link
+                  className={`rounded-md text-base font-medium ${
+                    location.pathname === "/auth"
+                      ? "bg-blue-100 text-blue-600 px-2 py-1"
+                      : "text-zinc-900"
+                  }`}
+                  to="/auth"
+                >
+                  Login/Register
+                </Link>
               </div>
             </div>
 
@@ -193,6 +207,14 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+            <Link
+              className={`block border text-blue-600 px-3 py-2 rounded-md text-base font-medium ${
+                location.pathname === "/auth" ? "bg-blue-100" : "bg-white"
+              }`}
+              to="/auth"
+            >
+              Login/Register
+            </Link>
           </div>
         </div>
       </div>

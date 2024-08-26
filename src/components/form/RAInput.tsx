@@ -1,4 +1,7 @@
+import { Form, Input } from "antd";
+import { ReactNode, useState } from "react";
 import { Controller } from "react-hook-form";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 type TInputProps = {
   type: string;
@@ -6,34 +9,62 @@ type TInputProps = {
   label?: string;
   defaultValue?: string | number;
   disabled?: boolean;
+  iconPosition?: "prefix" | "suffix";
+  prefixIcon?: ReactNode;
+  suffixIcon?: ReactNode;
 };
 
-const RAInput = ({ name, type }: TInputProps) => {
+const RAInput = ({
+  name,
+  type,
+  label,
+  disabled,
+  defaultValue,
+  prefixIcon,
+  iconPosition = "prefix",
+}: TInputProps) => {
+  const [inputType, setInputType] = useState(type);
+
+  const togglePasswordVisibility = () => {
+    setInputType(inputType === "password" ? "text" : "password");
+  };
+
   return (
-    <>
+    <div className="mb-5 gird grid-cols-2">
       <Controller
         name={name}
         render={({ field, fieldState: { error } }) => (
-          <label className="relative cursor-pointer flex items-center focus-within:text-blue-500">
-            <input
-              type={type}
-              placeholder={name}
+          <Form.Item label={label}>
+            <Input
+              size="large"
               {...field}
+              className="border h-11"
+              type={inputType}
+              disabled={disabled}
               id={name}
-              className="peer py-2 px-3 w-56 border-gray-400 border-2 rounded-lg border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200"
+              defaultValue={defaultValue}
+              prefix={iconPosition === "prefix" ? prefixIcon : null}
+              suffix={
+                type === "password" ? (
+                  <div onClick={togglePasswordVisibility}>
+                    {inputType === "password" ? (
+                      <EyeInvisibleOutlined />
+                    ) : (
+                      <EyeTwoTone />
+                    )}
+                  </div>
+                ) : null
+              }
             />
             {error && (
               <small className="text-center text-red-500 font-semibold pt-0.5">
                 {error.message}
               </small>
             )}
-            <span className="text-md text-gray-400 text-opacity-80 bg-white absolute left-4 top-[60%] transform -translate-y-[69%] px-1 transition-all duration-200 input-text peer-focus:text-blue-500">
-              {name}
-            </span>
-          </label>
+          </Form.Item>
         )}
       />
-    </>
+    </div>
   );
 };
 

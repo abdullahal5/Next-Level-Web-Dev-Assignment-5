@@ -24,7 +24,6 @@ const serviceData = [
 const Service = () => {
   return (
     <div className="max-w-7xl mx-auto lg:bg-blue-50 lg:border md:border md:bg-blue-50 mt-10 py-[30px] rounded-md">
-      {/* <Titlebar title="Our Services" /> */}
       <div className="flex lg:flex-row md:flex-row flex-col items-center justify-center gap-10">
         {serviceData?.map((item, idx) => (
           <div

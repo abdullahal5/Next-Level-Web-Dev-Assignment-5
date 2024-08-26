@@ -1,13 +1,15 @@
 import Banner from "../../components/home/Banner";
+import FeaturedRooms from "../../components/home/FeaturedRooms";
 import Service from "../../components/home/Service";
-import Navbar from "../../components/shared/Navbar";
+import WhyChooseUs from "../../components/home/WhyChooseUs";
 
 const Home = () => {
   return (
-    <div className="h-[200vh]">
-      <Navbar />
+    <div>
       <Banner />
       <Service />
+      <FeaturedRooms />
+      <WhyChooseUs />
     </div>
   );
 };
