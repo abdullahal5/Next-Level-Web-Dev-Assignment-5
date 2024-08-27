@@ -1,4 +1,4 @@
-import videobg from "../../assets/videoBg.mp4";
+import videobg from "../../assets/6466564-hd_1366_720_25fps.mp4";
 
 const Banner = () => {
   return (
