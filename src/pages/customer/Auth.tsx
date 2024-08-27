@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import Titlebar from "../../components/ui/Titlebar";
 import RAForm from "../../components/form/RAForm";
 import RAInput from "../../components/form/RAInput";
 import { Button } from "antd";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   LockOutlined,
   MailOutlined,
@@ -11,20 +13,79 @@ import {
 } from "@ant-design/icons";
 import { FieldValues } from "react-hook-form";
 import { MdOutlineLocationOn } from "react-icons/md";
+import UploadImage from "../../components/form/UploadImage";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../redux/features/auth/authApi";
+import { toast } from "sonner";
+import { loginSchema, signupSchema } from "../../schema/Authentication";
+import { verifyToken } from "../../utils/decodeJwt";
+import { useAppDispatch } from "../../redux/hook";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [activeTab, setActiveTab] = useState("login");
+  const [addUser] = useRegisterMutation();
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
 
-  const handleLogin = (data: FieldValues) => {
-    console.log(data);
+  const handleLogin = async (data: FieldValues) => {
+    const toastId = toast.loading("Creating...");
+
+    try {
+      const res = await login(data);
+      if (res.error) {
+        toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
+      } else {
+        toast.success(res.data.message, {
+          id: toastId,
+          duration: 2000,
+        });
+        const token = res.data.data.accessToken;
+        const decoded = await verifyToken(token);
+        dispatch(
+          setUser({
+            token: res.data.data.accessToken,
+            user: decoded,
+          })
+        );
+        navigate("/");
+      }
+    } catch (error: any) {
+      toast.error(error.message, {
+        id: toastId,
+        duration: 2000,
+      });
+    }
   };
 
-  const handleSignUp = (data: FieldValues) => {
-    console.log(data);
+  const handleSignUp = async (data: FieldValues) => {
+    const toastId = toast.loading("Creating...");
+
+    try {
+      const res = await addUser(data);
+      if (res.error) {
+        toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
+      } else {
+        toast.success(res.data.message, {
+          id: toastId,
+          duration: 2000,
+        });
+        setActiveTab("login");
+      }
+    } catch (error: any) {
+      toast.error(error.message, {
+        id: toastId,
+        duration: 2000,
+      });
+    }
   };
 
   return (
@@ -64,16 +125,16 @@ const Auth = () => {
       >
         <div className="w-80">
           {activeTab === "login" && (
-            <RAForm onSubmit={handleLogin}>
+            <RAForm resolver={zodResolver(loginSchema)} onSubmit={handleLogin}>
               <RAInput
                 type="email"
-                name="E-mail Login"
+                name="email"
                 label="Email"
                 prefixIcon={<MailOutlined />}
               />
               <RAInput
                 type="password"
-                name="Password Login"
+                name="password"
                 label="Password"
                 prefixIcon={<LockOutlined />}
                 iconPosition="prefix"
@@ -88,38 +149,42 @@ const Auth = () => {
             </RAForm>
           )}
           {activeTab === "signup" && (
-            <RAForm onSubmit={handleSignUp}>
+            <RAForm
+              resolver={zodResolver(signupSchema)}
+              onSubmit={handleSignUp}
+            >
               <RAInput
                 type="text"
-                name="Name"
+                name="name"
                 label="Name"
                 prefixIcon={<UserOutlined />}
               />
               <RAInput
                 type="email"
-                name="E-mail Register"
+                name="email"
                 label="Email"
                 prefixIcon={<MailOutlined />}
               />
               <RAInput
                 type="password"
-                name="Password Register"
+                name="password"
                 label="Password"
                 prefixIcon={<LockOutlined />}
                 iconPosition="prefix"
               />
               <RAInput
                 type="text"
-                name="Phone"
+                name="phone"
                 label="Phone"
                 prefixIcon={<PhoneOutlined />}
               />
               <RAInput
                 type="text"
-                name="Address"
+                name="address"
                 label="Adress"
                 prefixIcon={<MdOutlineLocationOn />}
               />
+              <UploadImage />
               <Button
                 htmlType="submit"
                 className="w-32 mx-auto h-9"

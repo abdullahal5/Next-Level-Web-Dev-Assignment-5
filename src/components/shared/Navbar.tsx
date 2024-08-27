@@ -1,6 +1,9 @@
 import { Avatar, Button, Dropdown, MenuProps } from "antd";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { userType } from "../../types/user.types";
+import { logout } from "../../redux/features/auth/authSlice";
 
 const Links = [
   { path: "/", name: "Home" },
@@ -9,49 +12,39 @@ const Links = [
   { path: "/contact", name: "Contact Us" },
 ];
 
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        1st menu item
-      </a>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: "3",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.luohanacademy.com"
-      >
-        3rd menu item
-      </a>
-    ),
-  },
-];
+type RootState = {
+  auth: {
+    user: userType | null;
+  };
+};
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAppSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <>
+          <Link to={`/${user?.role}/dashboard`}>
+            {user?.role === "user" ? "My Bookings" : "Dashboard"}
+          </Link>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <>
+          <p onClick={() => dispatch(logout())}>Logout</p>
+        </>
+      ),
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,34 +99,42 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
-              <Button
-                style={{ border: "none", padding: 2, borderRadius: "100%" }}
-                type="text"
-              >
-                <Avatar
-                  size={45}
-                  src={
-                    "https://i.ibb.co/yPLQsjm/Screenshot-2024-08-13-001037.png"
-                  }
-                />
-              </Button>
-            </Dropdown> */}
-
-            <div className="lg:block md:block hidden">
-              <div className="flex items-center font-medium">
-                <Link
-                  className={`rounded-md text-base font-medium ${
-                    location.pathname === "/auth"
-                      ? "bg-blue-100 text-blue-600 px-2 py-1"
-                      : "text-zinc-900"
-                  }`}
-                  to="/auth"
+            {user ? (
+              <Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
+                <Button
+                  style={{
+                    border: "none",
+                    padding: 0,
+                    borderRadius: "50%",
+                    width: 45,
+                    height: 45,
+                    overflow: "hidden",
+                  }}
+                  type="text"
                 >
-                  Login/Register
-                </Link>
+                  <Avatar
+                    size={45} // Avatar size
+                    src={user.profileImage} // Avatar image
+                    style={{ borderRadius: "50%" }} // Ensure Avatar is round
+                  />
+                </Button>
+              </Dropdown>
+            ) : (
+              <div className="lg:block md:block hidden">
+                <div className="flex items-center font-medium">
+                  <Link
+                    className={`rounded-md text-base font-medium ${
+                      location.pathname === "/auth"
+                        ? "bg-blue-100 text-blue-600 px-2 py-1"
+                        : "text-zinc-900"
+                    }`}
+                    to="/auth"
+                  >
+                    Login/Register
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
 
             <button
               type="button"
