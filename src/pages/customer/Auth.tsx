@@ -24,6 +24,7 @@ import { verifyToken } from "../../utils/decodeJwt";
 import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { TResponse } from "../../global/global";
 
 type LoginResponseData = {
   accessToken: string;
@@ -57,7 +58,7 @@ const Auth = () => {
     const toastId = toast.loading("Creating...");
 
     try {
-      const res = await login(data);
+      const res = await login(data) as unknown as TResponse<any>;;
 
       if (res.error) {
         toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
@@ -93,7 +94,7 @@ const Auth = () => {
     const toastId = toast.loading("Creating...");
 
     try {
-      const res = await addUser(data);
+      const res = (await addUser(data)) as unknown as TResponse<any>;
       if (res.error) {
         toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
       } else {

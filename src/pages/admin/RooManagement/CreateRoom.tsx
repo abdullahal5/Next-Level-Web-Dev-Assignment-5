@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
@@ -14,6 +15,7 @@ import { useCreateRoomMutation } from "../../../redux/features/admin/roomManagem
 import { useAppSelector } from "../../../redux/hook";
 import { selectCurrentUser } from "../../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { TResponse } from "../../../global/global";
 
 const IMGBB_API_KEY = "228f07b239d69be9bcc9d7f97fbf57de";
 const UPLOAD_LIMIT = 7;
@@ -107,7 +109,7 @@ const CreateRoom: React.FC = () => {
     };
 
     try {
-      const res = await addRoom(formData);
+      const res = (await addRoom(formData)) as unknown as TResponse<any>;
       if (res.error) {
         toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
       } else {
@@ -117,7 +119,7 @@ const CreateRoom: React.FC = () => {
         });
       }
       navigate(`/${user?.role}/dashboard/get-room`);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message, {
         id: toastId,
         duration: 2000,

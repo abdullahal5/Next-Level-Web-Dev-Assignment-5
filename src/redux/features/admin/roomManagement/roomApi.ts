@@ -11,7 +11,26 @@ const roomManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["room"],
     }),
+    updateRoom: builder.mutation<void, { id: string | undefined; body: any }>({
+      query: ({ id, body }) => ({
+        url: `/rooms/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["room"],
+    }),
+    deleteRoom: builder.mutation<void, { id: string | undefined }>({
+      query: ({ id }) => ({
+        url: `/rooms/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["room"],
+    }),
   }),
 });
 
-export const { useCreateRoomMutation } = roomManagementApi;
+export const {
+  useCreateRoomMutation,
+  useUpdateRoomMutation,
+  useDeleteRoomMutation,
+} = roomManagementApi;

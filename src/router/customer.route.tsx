@@ -11,6 +11,7 @@ import Booking from "../pages/customer/Booking";
 import CreateRoom from "../pages/admin/RooManagement/CreateRoom";
 import Layout from "../pages/admin/dashboard/Layout";
 import RooMList from "../pages/admin/RooManagement/RooMList";
+import RoomUpdate from "../pages/admin/RooManagement/RoomUpdate";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ const router = createBrowserRouter([
             element: (
               <Protected>
                 <RooMList />
+              </Protected>
+            ),
+          },
+          {
+            path: "update-room/:id",
+            element: (
+              <Protected>
+                <RoomUpdate />
               </Protected>
             ),
           },

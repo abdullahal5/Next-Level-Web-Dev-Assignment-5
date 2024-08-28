@@ -12,7 +12,7 @@ const props: UploadProps = {
   // headers: {
   //   authorization: "authorization-text",
   // },
-  beforeUpload(file, fileList) {
+  beforeUpload(_, fileList) {
     if (fileList.length > UPLOAD_LIMIT) {
       message.error(`You can only upload up to ${UPLOAD_LIMIT} images.`);
       return Upload.LIST_IGNORE;

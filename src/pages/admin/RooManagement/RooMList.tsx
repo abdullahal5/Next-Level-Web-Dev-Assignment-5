@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table, TableColumnsType, Button, Space } from "antd";
 import Titlebar from "../../../components/ui/Titlebar";
 import { useGetAllRoomsQuery } from "../../../redux/features/rooms/roomApi";
 import { Link } from "react-router-dom";
+import DeleteModal from "../../../components/ui/DeleteModal";
+import { useDeleteRoomMutation } from "../../../redux/features/admin/roomManagement/roomApi";
+import { TResponse } from "../../../global/global";
+import { toast } from "sonner";
 
 interface RoomDataType {
   _id: React.Key;
@@ -14,6 +19,20 @@ interface RoomDataType {
 
 const RooMList = () => {
   const { data: rooms, isFetching } = useGetAllRoomsQuery({});
+  const [deleteRoom] = useDeleteRoomMutation<{ id: string | undefined }>();
+
+  const handleDelete = async (id: string) => {
+    try {
+      const res = (await deleteRoom({ id })) as unknown as TResponse<any>;
+      if (res.error) {
+        toast.error(res.error.data.message);
+      } else {
+        toast.success(res.data.message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   const columns: TableColumnsType<RoomDataType> = [
     {
@@ -45,13 +64,13 @@ const RooMList = () => {
     {
       title: "Actions",
       align: "center",
-      render: () => (
+      render: (_, record) => (
         <div className="flex justify-center gap-2">
           <Space>
-            <Link to={`/admin/user-data-update`}>
+            <Link to={`/admin/dashboard/update-room/${record._id}`}>
               <Button>Update</Button>
             </Link>
-            <Button>Details</Button>
+            <DeleteModal onConfirm={() => handleDelete(record._id as string)} />
           </Space>
         </div>
       ),
@@ -61,6 +80,7 @@ const RooMList = () => {
   const data: RoomDataType[] =
     rooms?.data.map((room: RoomDataType) => ({
       key: room._id,
+      _id: room._id,
       name: room.name,
       roomNo: room.roomNo,
       floorNo: room.floorNo,

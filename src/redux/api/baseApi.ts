@@ -31,16 +31,12 @@ const BaseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
-  console.log(result)
-
   if (result?.error?.status === 401) {
     const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });
     const data = await res.json();
-
-    console.log(data);
 
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;

@@ -33,38 +33,36 @@ const RAInput = ({
     <div className="mb-5">
       <Controller
         name={name}
-        render={({ field, fieldState: { error } }) => {
-          return (
-            <Form.Item label={label}>
-              <Input
-                size="large"
-                {...field}
-                className="border h-11 w-full"
-                type={inputType}
-                disabled={disabled}
-                id={name}
-                defaultValue={defaultValue}
-                prefix={iconPosition === "prefix" ? prefixIcon : null}
-                suffix={
-                  type === "password" ? (
-                    <div onClick={togglePasswordVisibility}>
-                      {inputType === "password" ? (
-                        <EyeInvisibleOutlined />
-                      ) : (
-                        <EyeTwoTone />
-                      )}
-                    </div>
-                  ) : null
-                }
-              />
-              {error && (
-                <small className="text-center text-red-500 font-semibold">
-                  {error.message}
-                </small>
-              )}
-            </Form.Item>
-          );
-        }}
+        defaultValue={defaultValue}
+        render={({ field, fieldState: { error } }) => (
+          <Form.Item label={label}>
+            <Input
+              size="large"
+              {...field}
+              className="border h-11 w-full"
+              type={inputType}
+              disabled={disabled}
+              id={name}
+              prefix={iconPosition === "prefix" ? prefixIcon : null}
+              suffix={
+                type === "password" ? (
+                  <div onClick={togglePasswordVisibility}>
+                    {inputType === "password" ? (
+                      <EyeInvisibleOutlined />
+                    ) : (
+                      <EyeTwoTone />
+                    )}
+                  </div>
+                ) : null
+              }
+            />
+            {error && (
+              <small className="text-center text-red-500 font-semibold">
+                {error.message}
+              </small>
+            )}
+          </Form.Item>
+        )}
       />
     </div>
   );

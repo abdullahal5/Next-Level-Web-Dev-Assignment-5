@@ -108,7 +108,7 @@ const Navbar = () => {
                 >
                   <Avatar
                     size={45} // Avatar size
-                    src={user.profileImage} // Avatar image
+                    src={user?.profileImage} // Avatar image
                     style={{ borderRadius: "50%" }} // Ensure Avatar is round
                   />
                 </Button>
