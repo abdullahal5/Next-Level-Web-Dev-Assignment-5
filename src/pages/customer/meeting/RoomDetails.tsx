@@ -11,7 +11,7 @@ import { useGetSingleRoomQuery } from "../../../redux/features/rooms/roomApi";
 import { RoomDetailsType } from "../../../types/room.types";
 
 const RoomDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string | undefined }>();
   const { data: roomDetails, isFetching } = useGetSingleRoomQuery(id);
   const roomData: RoomDetailsType | undefined = roomDetails?.data;
 
@@ -131,7 +131,7 @@ const RoomDetails = () => {
                     return (
                       <div
                         key={idx}
-                        className="text-sm items-center justify-center mx-auto bg-gray-200 px-2 py-1 rounded-md gap-2"
+                        className="text-sm font-semibold items-center justify-center mx-auto bg-gray-200 px-2 py-1 rounded-md gap-2"
                       >
                         {item}
                       </div>

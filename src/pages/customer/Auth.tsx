@@ -25,6 +25,23 @@ import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
+type LoginResponseData = {
+  accessToken: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+};
+
+type LoginResponse = {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: LoginResponseData;
+};
+
 const Auth = () => {
   const [activeTab, setActiveTab] = useState("login");
   const [addUser] = useRegisterMutation();
@@ -41,21 +58,27 @@ const Auth = () => {
 
     try {
       const res = await login(data);
+
       if (res.error) {
         toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
       } else {
-        toast.success(res.data.message, {
+        const responseData = res.data as LoginResponse;
+
+        toast.success(responseData.message, {
           id: toastId,
           duration: 2000,
         });
-        const token = res.data.data.accessToken;
+
+        const token = responseData.data.accessToken;
         const decoded = await verifyToken(token);
+
         dispatch(
           setUser({
-            token: res.data.data.accessToken,
+            token: responseData.data.accessToken,
             user: decoded,
           })
         );
+
         navigate("/");
       }
     } catch (error: any) {

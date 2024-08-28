@@ -43,11 +43,11 @@ const props: UploadProps = {
       };
     });
   },
-  customRequest({ onSuccess }) {
-    setTimeout(() => {
-      // onSuccess("ok");
-    }, 0);
-  },
+  // customRequest({ onSuccess }) {
+  //   setTimeout(() => {
+  //     // onSuccess("ok");
+  //   }, 0);
+  // },
 };
 
 const UploadImage: React.FC = () => (

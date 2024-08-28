@@ -2,7 +2,6 @@ import { Avatar, Button, Dropdown, MenuProps } from "antd";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { userType } from "../../types/user.types";
 import { logout } from "../../redux/features/auth/authSlice";
 
 const Links = [
@@ -12,17 +11,12 @@ const Links = [
   { path: "/contact", name: "Contact Us" },
 ];
 
-type RootState = {
-  auth: {
-    user: userType | null;
-  };
-};
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
-  const { user } = useAppSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const items: MenuProps["items"] = [

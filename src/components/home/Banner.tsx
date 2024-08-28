@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import videobg from "../../assets/6466564-hd_1366_720_25fps.mp4";
 
 const Banner = () => {
@@ -19,9 +20,11 @@ const Banner = () => {
           <p className=" text-xl">
             Efficient, hassle-free room booking for all your meeting needs.
           </p>
-          <button className="bg-blue-600 text-white px-7 py-2 rounded-md font-semibold">
-            Book Now
-          </button>
+          <Link to={'/meeting-rooms'}>
+            <button className="bg-blue-600 text-white px-7 py-2 rounded-md font-semibold">
+              Book Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

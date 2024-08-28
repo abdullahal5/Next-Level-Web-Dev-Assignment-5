@@ -3,18 +3,26 @@ import { Button, Select } from "antd";
 import Input from "antd/es/input/Input";
 import { useState } from "react";
 import RoomCard from "../../../components/ui/RoomCard";
-import Titlebar from "../../../components/ui/Titlebar";
 import { useGetAllRoomsQuery } from "../../../redux/features/rooms/roomApi";
 import { RoomData } from "../../../types/room.types";
 import { FaSpinner } from "react-icons/fa";
-
 
 const MeetingRoom = () => {
   const [price, setPrice] = useState(0);
   const [capacity, setCapacity] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-  const { data: room, isFetching } = useGetAllRoomsQuery(undefined);
+
+  const {
+    data: room,
+    isLoading,
+    isFetching,
+  } = useGetAllRoomsQuery({
+    price,
+    capacity,
+    searchTerm,
+    sortOrder,
+  });
 
   const increaseCapacity = () => {
     setCapacity((prev) => prev + 1);
@@ -30,7 +38,6 @@ const MeetingRoom = () => {
     setSearchTerm(value);
   };
 
-
   const clearFilters = () => {
     setPrice(0);
     setCapacity(0);
@@ -38,7 +45,7 @@ const MeetingRoom = () => {
     setSortOrder("");
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-[80vh]">
         <FaSpinner fontSize={"3rem"} className="animate-spin" />
@@ -47,11 +54,10 @@ const MeetingRoom = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <Titlebar title="Rooms" />
-      <div className="flex items-start gap-3 my-3 pt-5">
-        <div className="w-80 border shadow sticky p-3 rounded-md">
-          <div className="pb-3 flex items-center justify-between">
+    <div className="max-w-7xl lg:mx-auto md:mx-5 mx-5">
+      <div className="flex lg:flex-row md:flex-row flex-col items-start gap-3 my-3 pt-5">
+        <div className="lg:w-80 md:w-80 border shadow sticky p-3 rounded-md mx-auto">
+          <div className="pb-3 flex lg:flex-row md:flex-row flex-col items-center justify-between">
             <h1 className="text-xl font-semibold ">Filter</h1>
             <span
               onClick={clearFilters}
@@ -74,14 +80,14 @@ const MeetingRoom = () => {
             </p>
             <input
               type="range"
-              min={0}
+              min={50}
               max={1000}
               value={price}
               onChange={(e) => setPrice(Number(e.target.value))}
               className="outline-none w-full mt-2"
             />
             <div className="flex items-center justify-between text-sm">
-              <p>$0</p>
+              <p>$50</p>
               <p>$1000</p>
             </div>
           </div>
@@ -140,13 +146,29 @@ const MeetingRoom = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 h-screen rounded-md">
-          <div className="grid grid-cols-2 gap-3">
-            {room?.data.map((item: RoomData) => (
-              <div key={item._id}>
-                <RoomCard item={item} />
+        <div className="flex-1 rounded-md mx-auto">
+          <div>
+            {isLoading || isFetching ? (
+              <div className="flex items-center justify-center h-[80vh]">
+                <FaSpinner fontSize={"3rem"} className="animate-spin" />
               </div>
-            ))}
+            ) : (
+              <div>
+                {room?.data?.length === 0 ? (
+                  <p className="h-[70vh] rounded-md border flex items-center justify-center text-xl font-semibold">
+                    No available room
+                  </p>
+                ) : (
+                  <div className="grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-3">
+                    {room?.data?.map((item: RoomData) => (
+                      <div key={item._id}>
+                        <RoomCard item={item} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
