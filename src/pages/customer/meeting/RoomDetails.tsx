@@ -6,7 +6,7 @@ import {
   FaDollarSign,
   FaSpinner,
 } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleRoomQuery } from "../../../redux/features/rooms/roomApi";
 import { RoomDetailsType } from "../../../types/room.types";
 
@@ -37,7 +37,7 @@ const RoomDetails = () => {
           <img
             key={idx}
             src={image}
-            className="object-cover rounded-md"
+            className="object-cover rounded-md border h-full w-full"
             alt={`Room ${idx + 2}`}
             style={{
               width: `calc((100% - 2 * 0.75rem) / ${imagesToShow.length})`,
@@ -57,7 +57,7 @@ const RoomDetails = () => {
           <img
             key={idx}
             src={image}
-            className="object-cover rounded-md w-full h-full"
+            className="object-cover border rounded-md w-full h-full"
             alt={`Room ${idx + 5}`}
           />
         ))}
@@ -73,7 +73,7 @@ const RoomDetails = () => {
             <div className="w-[500px]">
               <div>
                 <img
-                  className="rounded-md object-cover w-full"
+                  className="rounded-md border object-cover w-full"
                   src={roomData?.images[0]}
                   alt="Main Room"
                 />
@@ -140,12 +140,14 @@ const RoomDetails = () => {
                 </span>
               </div>
             </div>
-            <Button
-              type="primary"
-              className="w-full h-12 font-semibold rounded-lg bg-blue-600 hover:bg-blue-700"
-            >
-              Book Now
-            </Button>
+            <Link to={`/meeting-rooms/${id}/booking`}>
+              <Button
+                type="primary"
+                className="w-full h-12 font-semibold rounded-lg bg-blue-600 hover:bg-blue-700"
+              >
+                Book Now
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

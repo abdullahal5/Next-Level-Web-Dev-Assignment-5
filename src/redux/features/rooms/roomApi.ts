@@ -26,7 +26,9 @@ const roomApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-    }),
+      providesTags: ["room"]
+    }
+  ),
 
     getSingleRoom: builder.query({
       query: (arg: string | undefined) => ({

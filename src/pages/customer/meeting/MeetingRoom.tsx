@@ -154,7 +154,7 @@ const MeetingRoom = () => {
               </div>
             ) : (
               <div>
-                {room?.data?.length === 0 ? (
+                {room?.data?.length === 0 || !room ? (
                   <p className="h-[70vh] rounded-md border flex items-center justify-center text-xl font-semibold">
                     No available room
                   </p>

@@ -14,10 +14,11 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token;
+    const state = getState() as RootState;
+    const token = state.auth.token;
 
     if (token) {
-      headers.set("authorization", `${token}`);
+      headers.set("authorization", `Bearer ${token}`);
     }
     return headers;
   },
@@ -30,12 +31,16 @@ const BaseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
+  console.log(result)
+
   if (result?.error?.status === 401) {
     const res = await fetch("http://localhost:5000/api/v1/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });
     const data = await res.json();
+
+    console.log(data);
 
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;
@@ -59,6 +64,6 @@ const BaseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: BaseQueryWithRefreshToken,
-  tagTypes: ["semester", "courses", "offeredCourse"],
+  tagTypes: ["room", "courses", "offeredCourse"],
   endpoints: () => ({}),
 });

@@ -39,7 +39,7 @@ const RAInput = ({
               <Input
                 size="large"
                 {...field}
-                className="border h-11"
+                className="border h-11 w-full"
                 type={inputType}
                 disabled={disabled}
                 id={name}

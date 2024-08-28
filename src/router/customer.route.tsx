@@ -7,6 +7,10 @@ import Auth from "../pages/customer/Auth";
 import Root from "../components/layout/Root";
 import RoomDetails from "../pages/customer/meeting/RoomDetails";
 import Protected from "./Protected";
+import Booking from "../pages/customer/Booking";
+import CreateRoom from "../pages/admin/RooManagement/CreateRoom";
+import Layout from "../pages/admin/dashboard/Layout";
+import RooMList from "../pages/admin/RooManagement/RooMList";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,40 @@ const router = createBrowserRouter([
             <RoomDetails />
           </Protected>
         ),
+      },
+      {
+        path: "/meeting-rooms/:id/booking",
+        element: (
+          <Protected>
+            <Booking />
+          </Protected>
+        ),
+      },
+      {
+        path: "/:role/dashboard",
+        element: (
+          <Protected>
+            <Layout />
+          </Protected>
+        ),
+        children: [
+          {
+            path: "create-room",
+            element: (
+              <Protected>
+                <CreateRoom />
+              </Protected>
+            ),
+          },
+          {
+            path: "get-room",
+            element: (
+              <Protected>
+                <RooMList />
+              </Protected>
+            ),
+          },
+        ],
       },
     ],
   },
