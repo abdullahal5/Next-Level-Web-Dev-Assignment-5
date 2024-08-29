@@ -105,7 +105,7 @@ const Sidebar = () => {
                     to={`/${user?.role}/dashboard/get-slot`}
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Get Slot
+                    Get All Slot
                   </Link>
                 </div>
               </div>
@@ -135,16 +135,10 @@ const Sidebar = () => {
               >
                 <div className="pl-4 space-y-2">
                   <Link
-                    to="/slot-management/create"
+                    to={`/${user?.role}/dashboard/bookings`}
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Create
-                  </Link>
-                  <Link
-                    to="/slot-management/update"
-                    className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Update
+                    All Bookings
                   </Link>
                 </div>
               </div>

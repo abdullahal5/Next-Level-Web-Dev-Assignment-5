@@ -78,7 +78,7 @@ const RooMList = () => {
   ];
 
   const data: RoomDataType[] =
-    rooms?.data.map((room: RoomDataType) => ({
+    rooms?.data?.map((room: RoomDataType) => ({
       key: room._id,
       _id: room._id,
       name: room.name,

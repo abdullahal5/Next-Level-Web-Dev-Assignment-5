@@ -15,6 +15,7 @@ import RoomUpdate from "../pages/admin/RooManagement/RoomUpdate";
 import CreateSlot from "../pages/admin/SlotManagement/CreateSlot";
 import SlotList from "../pages/admin/SlotManagement/SlotList";
 import UpdateSlot from "../pages/admin/SlotManagement/UpdateSlot";
+import AllBooking from "../pages/admin/BookingManagement/AllBooking";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,14 @@ const router = createBrowserRouter([
             element: (
               <Protected>
                 <UpdateSlot />
+              </Protected>
+            ),
+          },
+          {
+            path: "bookings",
+            element: (
+              <Protected>
+                <AllBooking />
               </Protected>
             ),
           },
