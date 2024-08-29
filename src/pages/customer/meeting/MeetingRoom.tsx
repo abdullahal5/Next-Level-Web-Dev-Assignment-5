@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Select } from "antd";
 import Input from "antd/es/input/Input";
-import { useState } from "react";
 import RoomCard from "../../../components/ui/RoomCard";
 import { useGetAllRoomsQuery } from "../../../redux/features/rooms/roomApi";
 import { RoomData } from "../../../types/room.types";
@@ -11,6 +11,7 @@ const MeetingRoom = () => {
   const [price, setPrice] = useState(0);
   const [capacity, setCapacity] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
   const {
@@ -20,9 +21,19 @@ const MeetingRoom = () => {
   } = useGetAllRoomsQuery({
     price,
     capacity,
-    searchTerm,
+    searchTerm: debouncedSearchTerm,
     sortOrder,
   });
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // 500ms delay
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
 
   const increaseCapacity = () => {
     setCapacity((prev) => prev + 1);
@@ -32,10 +43,6 @@ const MeetingRoom = () => {
     if (capacity > 1) {
       setCapacity((prev) => prev - 1);
     }
-  };
-
-  const handleSearch = (value: string) => {
-    setSearchTerm(value);
   };
 
   const clearFilters = () => {
@@ -69,7 +76,7 @@ const MeetingRoom = () => {
           <Input
             type="search"
             value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             prefix={<SearchOutlined size={30} />}
             placeholder="Search by room name or keyword"
             style={{ height: "45px" }}
