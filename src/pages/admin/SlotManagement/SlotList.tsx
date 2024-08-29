@@ -3,10 +3,9 @@ import { Table, TableColumnsType, Button, Space } from "antd";
 import Titlebar from "../../../components/ui/Titlebar";
 import { Link } from "react-router-dom";
 import DeleteModal from "../../../components/ui/DeleteModal";
-import { useDeleteRoomMutation } from "../../../redux/features/admin/roomManagement/roomApi";
 import { TResponse } from "../../../global/global";
 import { toast } from "sonner";
-import { useGetAllSlotQuery } from "../../../redux/features/admin/slotManagement/slotApi";
+import { useDeleteSlotMutation, useGetAllSlotQuery } from "../../../redux/features/admin/slotManagement/slotApi";
 
 export type TRoom = {
   _id: string;
@@ -31,7 +30,7 @@ interface RoomDataType {
 
 const SlotList = () => {
   const { data: slots, isFetching } = useGetAllSlotQuery(undefined);
-  const [deleteRoom] = useDeleteRoomMutation<{ id: string | undefined }>();
+  const [deleteRoom] = useDeleteSlotMutation<{ id: string | undefined }>();
 
   const handleDelete = async (id: string) => {
     try {

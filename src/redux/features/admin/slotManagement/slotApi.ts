@@ -42,6 +42,16 @@ const ManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["slot"],
     }),
+    deleteSlot: builder.mutation({
+      query: ({ id, body }) => {
+        return {
+          url: `slots/${id}`,
+          method: "DELETE",
+          body,
+        };
+      },
+      invalidatesTags: ["slot"],
+    }),
   }),
 });
 
@@ -50,4 +60,5 @@ export const {
   useGetSingleSlotQuery,
   useGetAllSlotQuery,
   useUpdateSlotMutation,
+  useDeleteSlotMutation
 } = ManagementApi;

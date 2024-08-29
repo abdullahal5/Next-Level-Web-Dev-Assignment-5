@@ -12,6 +12,7 @@ import moment from "moment";
 import { useCreateSlotMutation } from "../../../redux/features/admin/slotManagement/slotApi";
 import { TResponse } from "../../../global/global";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface Room {
   _id: string;
@@ -21,6 +22,7 @@ interface Room {
 const CreateSlot = () => {
   const [creatSlot] = useCreateSlotMutation();
   const { data: rooms, isFetching } = useGetAllRoomsQuery({});
+  const navigation = useNavigate()
 
   const roomsOption = rooms?.data?.map((item: Room) => ({
     value: item._id,
@@ -46,6 +48,7 @@ const CreateSlot = () => {
           id: toastId,
           duration: 2000,
         });
+        navigation("/admin/dashboard/get-slot");
       }
     } catch (error: any) {
       toast.error(error.message, {
