@@ -7,7 +7,8 @@ import {
   useGetAllBookingsQuery,
   useUpdateBookingMutation,
 } from "../../../redux/features/admin/bookingMangement/bookingApi";
-import { TBooking } from "../../../types/bookings.types";
+import {
+} from "../../../types/bookings.types";
 import moment from "moment";
 import { TResponse } from "../../../global/global";
 import { toast } from "sonner";
@@ -18,18 +19,44 @@ interface BookingDataType {
   roomName: string;
   userName: string;
   date: string;
-  startTime: string;
+  time: string;
   endTime: string;
   status: "Confirmed" | "Unconfirmed";
 }
 
+export interface TBooking {
+  _id: string;
+  room: {
+    name: string;
+  };
+  user: {
+    name: string;
+  };
+  date: string;
+  createdAt: string;
+  slots: {
+    endTime?: string;
+  };
+  isConfirmed: "confirmed" | "unconfirmed";
+}
+
+export interface GetAllBookingsResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: TBooking[];
+}
+
 const AllBookings = () => {
-  const { data: bookingsData, isFetching } = useGetAllBookingsQuery(undefined);
+  const { data: bookingsData, isFetching } = useGetAllBookingsQuery(undefined) as {
+    data: GetAllBookingsResponse;
+    isFetching: boolean;
+  };
   const [updateBooking] = useUpdateBookingMutation();
   const [deleteBooking] = useDeleteBookingMutation();
 
   const handleApprove = async (id: string) => {
-    const toastId = toast.loading("Creating...");
+    const toastId = toast.loading("Approving...");
 
     try {
       const res = (await updateBooking({
@@ -53,7 +80,7 @@ const AllBookings = () => {
   };
 
   const handleReject = async (id: string) => {
-    const toastId = toast.loading("Creating...");
+    const toastId = toast.loading("Rejecting...");
 
     try {
       const res = (await updateBooking({

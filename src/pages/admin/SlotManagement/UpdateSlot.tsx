@@ -32,9 +32,29 @@ interface RoomOption {
   label: string;
 }
 
+export interface Root {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Data;
+}
+
+export interface Data {
+  _id: string;
+  room: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  isBooked: boolean;
+  __v: number;
+}
+
 const UpdateSlot: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string | undefined }>();
   const { data: slotData, isFetching } = useGetSingleSlotQuery(id);
+
+  const slotSingleData = slotData as unknown as Root;
+
   const [updateSlot] = useUpdateSlotMutation();
   const { data: roomsData } = useGetAllRoomsQuery({});
 
@@ -45,7 +65,7 @@ const UpdateSlot: React.FC = () => {
     })) || [];
 
   const defaultRoom = roomsOption.find(
-    (option) => option.value === slotData?.data?.room
+    (option) => option.value === slotSingleData?.data?.room
   );
 
   const handleUpdateSlot = async (data: FieldValues) => {
@@ -101,7 +121,7 @@ const UpdateSlot: React.FC = () => {
               </div>
               <div className="flex-1">
                 <RADatePicker
-                  defaultValue={slotData?.data?.date}
+                  defaultValue={slotSingleData?.data?.date}
                   name="date"
                   label="Date"
                 />
@@ -110,14 +130,14 @@ const UpdateSlot: React.FC = () => {
             <div className="flex items-center gap-4">
               <div className="flex-1">
                 <RATimePicker
-                  defaultValue={slotData?.data?.startTime}
+                  defaultValue={slotSingleData?.data?.startTime}
                   name="startTime"
                   label="Start Time"
                 />
               </div>
               <div className="flex-1">
                 <RATimePicker
-                  defaultValue={slotData?.data?.endTime}
+                  defaultValue={slotSingleData?.data?.endTime}
                   name="endTime"
                   label="End Time"
                 />

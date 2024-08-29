@@ -5,31 +5,46 @@ import { Link } from "react-router-dom";
 import DeleteModal from "../../../components/ui/DeleteModal";
 import { TResponse } from "../../../global/global";
 import { toast } from "sonner";
-import { useDeleteSlotMutation, useGetAllSlotQuery } from "../../../redux/features/admin/slotManagement/slotApi";
+import {
+  useDeleteSlotMutation,
+  useGetAllSlotQuery,
+} from "../../../redux/features/admin/slotManagement/slotApi";
 
-export type TRoom = {
+export interface Room {
   _id: string;
   name: string;
+  images: string[];
   roomNo: number;
+  capacity: number;
   floorNo: number;
   pricePerSlot: number;
-  amenities: [string];
+  amenities: string[];
   isDeleted: boolean;
-  capacity: number;
-  images: [string];
-};
+  updatedAt: string;
+}
 
-interface RoomDataType {
+export interface Root {
   _id: string;
-  room: TRoom;
+  room: Room;
   date: string;
   startTime: string;
   endTime: string;
   isBooked: boolean;
+  __v: number;
+}
+
+export interface SlotData {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Root[];
 }
 
 const SlotList = () => {
-  const { data: slots, isFetching } = useGetAllSlotQuery(undefined);
+  const { data: slotsResponse, isFetching } = useGetAllSlotQuery(undefined) as {
+    data: SlotData;
+    isFetching: boolean;
+  };
   const [deleteRoom] = useDeleteSlotMutation<{ id: string | undefined }>();
 
   const handleDelete = async (id: string) => {
@@ -45,15 +60,15 @@ const SlotList = () => {
     }
   };
 
-  const columns: TableColumnsType<RoomDataType> = [
+  const columns: TableColumnsType<Root> = [
     {
       title: "Room Name",
-      dataIndex: "name",
+      dataIndex: ["room", "name"],
       align: "center",
     },
     {
       title: "Room No.",
-      dataIndex: "roomNo",
+      dataIndex: ["room", "roomNo"],
       align: "center",
     },
     {
@@ -80,23 +95,14 @@ const SlotList = () => {
             <Link to={`/admin/dashboard/update-slot/${record._id}`}>
               <Button>Update</Button>
             </Link>
-            <DeleteModal onConfirm={() => handleDelete(record._id as string)} />
+            <DeleteModal onConfirm={() => handleDelete(record._id)} />
           </Space>
         </div>
       ),
     },
   ];
 
-  const data: RoomDataType[] =
-    slots?.data?.map((slot: RoomDataType) => ({
-      key: slot._id,
-      _id: slot._id,
-      date: slot.date,
-      name: slot.room.name,
-      roomNo: slot.room.roomNo,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
-    })) || [];
+  const data: Root[] = slotsResponse?.data || [];
 
   return (
     <>
@@ -107,6 +113,7 @@ const SlotList = () => {
         loading={isFetching}
         size="large"
         pagination={false}
+        rowKey={"_id"}
       />
     </>
   );
