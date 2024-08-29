@@ -4,16 +4,12 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../redux/hook";
 
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen] = useState(true);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const roomManagementRef = useRef<HTMLDivElement>(null);
   const slotManagementRef = useRef<HTMLDivElement>(null);
   const bookManagementRef = useRef<HTMLDivElement>(null);
-  const {user} = useAppSelector(state => state.auth)
-
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
+  const { user } = useAppSelector((state) => state.auth);
 
   const toggleDropdown = (name: string) => {
     setOpenDropdown(openDropdown === name ? null : name);
@@ -100,16 +96,14 @@ const Sidebar = () => {
               >
                 <div className="pl-4 space-y-2">
                   <Link
-                    to="/slot-management/create"
+                    to={`/${user?.role}/dashboard/create-slot`}
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={closeSidebar}
                   >
                     Create
                   </Link>
                   <Link
                     to="/slot-management/update"
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={closeSidebar}
                   >
                     Update
                   </Link>
@@ -143,14 +137,12 @@ const Sidebar = () => {
                   <Link
                     to="/slot-management/create"
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={closeSidebar}
                   >
                     Create
                   </Link>
                   <Link
                     to="/slot-management/update"
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={closeSidebar}
                   >
                     Update
                   </Link>

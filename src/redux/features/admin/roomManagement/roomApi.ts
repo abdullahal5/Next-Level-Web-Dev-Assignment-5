@@ -4,10 +4,10 @@ import { baseApi } from "../../../api/baseApi";
 const roomManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createRoom: builder.mutation<void, any>({
-      query: (newRoom) => ({
+      query: (newSlot) => ({
         url: "/rooms",
         method: "POST",
-        body: newRoom,
+        body: newSlot,
       }),
       invalidatesTags: ["room"],
     }),
