@@ -27,6 +27,7 @@ const CreateSlot = () => {
     label: item.name,
   }));
 
+
   const handleCreateSlot = async (data: FieldValues) => {
     const toastId = toast.loading("Creating...");
 

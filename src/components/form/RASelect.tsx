@@ -21,6 +21,7 @@ const RASelect = ({
   return (
     <Controller
       name={name}
+      defaultValue={defaultValue}
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
@@ -30,7 +31,8 @@ const RASelect = ({
             size="large"
             {...field}
             options={options}
-            defaultValue={defaultValue}
+            value={field.value}
+            onChange={(value) => field.onChange(value)}
           />
           {error && (
             <small className="text-center text-red-500 font-semibold pt-0.5">

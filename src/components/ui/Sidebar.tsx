@@ -99,13 +99,13 @@ const Sidebar = () => {
                     to={`/${user?.role}/dashboard/create-slot`}
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Create
+                    Create Slot
                   </Link>
                   <Link
-                    to="/slot-management/update"
+                    to={`/${user?.role}/dashboard/get-slot`}
                     className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Update
+                    Get Slot
                   </Link>
                 </div>
               </div>

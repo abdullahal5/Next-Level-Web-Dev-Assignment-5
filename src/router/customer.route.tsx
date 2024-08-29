@@ -13,6 +13,8 @@ import Layout from "../pages/admin/dashboard/Layout";
 import RooMList from "../pages/admin/RooManagement/RooMList";
 import RoomUpdate from "../pages/admin/RooManagement/RoomUpdate";
 import CreateSlot from "../pages/admin/SlotManagement/CreateSlot";
+import SlotList from "../pages/admin/SlotManagement/SlotList";
+import UpdateSlot from "../pages/admin/SlotManagement/UpdateSlot";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +94,22 @@ const router = createBrowserRouter([
             element: (
               <Protected>
                 <CreateSlot />
+              </Protected>
+            ),
+          },
+          {
+            path: "get-slot",
+            element: (
+              <Protected>
+                <SlotList />
+              </Protected>
+            ),
+          },
+          {
+            path: "update-slot/:id",
+            element: (
+              <Protected>
+                <UpdateSlot />
               </Protected>
             ),
           },

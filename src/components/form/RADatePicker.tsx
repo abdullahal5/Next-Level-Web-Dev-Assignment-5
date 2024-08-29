@@ -18,9 +18,12 @@ const RADatePicker = ({ name, label, defaultValue }: TInputDatePickerProps) => {
             <DatePicker
               size="large"
               {...field}
+              value={field.value ? moment(field.value) : null}
+              onChange={(date) =>
+                field.onChange(date ? date.toISOString() : null)
+              } 
               id={name}
               style={{ width: "100%" }}
-              defaultValue={moment(defaultValue)}
             />
             {error && (
               <small className="text-center text-red-500 font-semibold pt-0.5">
@@ -29,6 +32,7 @@ const RADatePicker = ({ name, label, defaultValue }: TInputDatePickerProps) => {
             )}
           </Form.Item>
         )}
+        defaultValue={defaultValue ? moment(defaultValue) : undefined} // Ensure defaultValue is moment
       />
     </div>
   );
