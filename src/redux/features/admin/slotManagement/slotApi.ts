@@ -14,10 +14,17 @@ const ManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["slot"],
     }),
-    getAllSlot: builder.query<void, any>({
-      query: () => {
+    getAllSlot: builder.query<void, string | undefined | null>({
+      query: (date) => {
+        // console.log(date)
+        let url = "/slots";
+
+        if (date) {
+          url += `?date=${encodeURIComponent(date)}`;
+        }
+
         return {
-          url: "/slots",
+          url,
           method: "GET",
         };
       },
@@ -60,5 +67,5 @@ export const {
   useGetSingleSlotQuery,
   useGetAllSlotQuery,
   useUpdateSlotMutation,
-  useDeleteSlotMutation
+  useDeleteSlotMutation,
 } = ManagementApi;

@@ -28,6 +28,16 @@ const roomManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["booking"],
     }),
+    createBooking: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/bookings`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["booking", "slot"],
+    }),
   }),
 });
 
@@ -35,4 +45,5 @@ export const {
   useGetAllBookingsQuery,
   useUpdateBookingMutation,
   useDeleteBookingMutation,
+  useCreateBookingMutation
 } = roomManagementApi;

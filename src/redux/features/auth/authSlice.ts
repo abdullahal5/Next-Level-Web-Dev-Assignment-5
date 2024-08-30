@@ -9,6 +9,9 @@ type user = {
   profileImage: string;
   role: string;
   userId: string;
+  phone: string;
+  address: string;
+  _id: string;
 };
 
 type TAuthState = {
