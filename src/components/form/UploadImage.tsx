@@ -9,9 +9,6 @@ const UPLOAD_LIMIT = 7;
 const props: UploadProps = {
   name: "image",
   action: `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
-  // headers: {
-  //   authorization: "authorization-text",
-  // },
   beforeUpload(_, fileList) {
     if (fileList.length > UPLOAD_LIMIT) {
       message.error(`You can only upload up to ${UPLOAD_LIMIT} images.`);

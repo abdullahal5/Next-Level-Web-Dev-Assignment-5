@@ -7,7 +7,7 @@ type TInputProps = {
   type: string;
   name: string;
   label?: string;
-  defaultValue?: string | number;
+  defaultValue?: string | number | null;
   disabled?: boolean;
   iconPosition?: "prefix" | "suffix";
   prefixIcon?: ReactNode;
@@ -33,7 +33,7 @@ const RAInput = ({
     <div className="mb-5">
       <Controller
         name={name}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue ?? undefined}
         render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input

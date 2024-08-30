@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleRoomQuery } from "../../redux/features/rooms/roomApi";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
@@ -12,11 +12,12 @@ import { format, parseISO } from "date-fns";
 import { FaSpinner } from "react-icons/fa";
 import RAForm from "../../components/form/RAForm";
 import RAInput from "../../components/form/RAInput";
-import { useAppSelector } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { toast } from "sonner";
 import { useCreateBookingMutation } from "../../redux/features/admin/bookingMangement/bookingApi";
-import { TResponse } from "../../global/global";
+// import { TResponse } from "../../global/global";
+import { setBooking } from "../../redux/features/booking/bookingSlice";
 
 interface BookingImage {
   url: string;
@@ -79,7 +80,9 @@ const Booking = () => {
   const [formatedDate, setFormatedDate] = useState<string | undefined | null>(
     undefined
   );
+  const navigate = useNavigate();
   const user = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
   const bookingData = booking as unknown as SlotData;
   const { data: getSlots, isFetching: slotFetch } = useGetAllSlotQuery(
     formatedDate
@@ -141,37 +144,40 @@ const Booking = () => {
     if (selectedSlots.length === 0) {
       return toast.error("Please select at least one slot");
     }
-    const toastId = toast.loading("Booking");
+    // const toastId = toast.loading("Booking");
 
     const userInfo = {
-      // name: user?.name,
-      // email: user?.email,
-      // phone: user?.phone,
-      // address: user?.address,
+      name: user?.name,
+      email: user?.email,
+      phone: user?.phone,
+      address: user?.address,
       date: slotDates,
       user: user?._id,
       room: booking.data?._id,
       slots: slotIds,
+      pricePerSlot: booking?.data?.pricePerSlot
     };
 
-    try {
-      const res = (await createBooking(userInfo)) as unknown as TResponse<any>;
-      if (res.error) {
-        toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
-        setSelectedSlots([])
-      } else {
-        toast.success(res.data.message, {
-          id: toastId,
-          duration: 2000,
-        });
-      }
-    } catch (error: any) {
-      setSelectedSlots([]);
-      toast.success(error.message, {
-        id: toastId,
-        duration: 2000,
-      });
-    }
+    dispatch(setBooking(userInfo));
+    navigate("/checkout")
+    // try {
+    //   const res = (await createBooking(userInfo)) as unknown as TResponse<any>;
+    //   if (res.error) {
+    //     toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
+    //     setSelectedSlots([])
+    //   } else {
+    //     toast.success(res.data.message, {
+    //       id: toastId,
+    //       duration: 2000,
+    //     });
+    //   }
+    // } catch (error: any) {
+    //   setSelectedSlots([]);
+    //   toast.success(error.message, {
+    //     id: toastId,
+    //     duration: 2000,
+    //   });
+    // }
   };
 
   return (
