@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
@@ -16,9 +17,7 @@ import { useAppSelector } from "../../../redux/hook";
 import { selectCurrentUser } from "../../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { TResponse } from "../../../global/global";
-
-const IMGBB_API_KEY = "228f07b239d69be9bcc9d7f97fbf57de";
-const UPLOAD_LIMIT = 7;
+import uploadImageToCloudinary from "../../../utils/uploadImageToCloudinary";
 
 const roomFacilitiesOption = [
   { value: "WiFi", label: "WiFi" },
@@ -37,28 +36,32 @@ const UploadImage: React.FC<{
   onImageUpload: (url: string) => void;
   setUploading: (uploading: boolean) => void;
 }> = ({ onImageUpload, setUploading }) => {
-  const props: UploadProps = {
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+
+  const props = {
     name: "image",
-    action: `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
-    beforeUpload(_file, fileList) {
-      if (fileList.length > UPLOAD_LIMIT) {
-        toast.error(`You can only upload ${UPLOAD_LIMIT} images.`);
-        return Upload.LIST_IGNORE;
+    beforeUpload: async (_file: any) => {
+      if (_file.length > 3) {
+        toast.error("You can only upload up to 7 images.");
+        return Promise.reject("Limit exceeded");
       }
-      return true;
-    },
-    onChange(info) {
-      if (info.file.status === "uploading") {
-        setUploading(true);
-      }
-      if (info.file.status === "done") {
-        toast.success(`${info.file.name} file uploaded successfully`);
-        onImageUpload(info.file.response.data.url);
+
+      setUploading(true);
+      try {
+        const url = await uploadImageToCloudinary(_file);
+        if (url) {
+          setUploadedFiles((prev) => [...prev, url]);
+          onImageUpload(url);
+          toast.success(`${_file.name} file uploaded successfully`);
+        } else {
+          toast.error(`${_file.name} file upload failed.`);
+        }
+      } catch (error) {
+        toast.error(`${_file.name} file upload failed.`);
+      } finally {
         setUploading(false);
-      } else if (info.file.status === "error") {
-        toast.error(`${info.file.name} file upload failed.`);
-        setUploading(false);
       }
+      return false;
     },
     multiple: true,
   };

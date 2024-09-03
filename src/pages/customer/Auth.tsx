@@ -3,17 +3,17 @@ import { useState } from "react";
 import Titlebar from "../../components/ui/Titlebar";
 import RAForm from "../../components/form/RAForm";
 import RAInput from "../../components/form/RAInput";
-import { Button } from "antd";
+import { Button, Upload, UploadProps } from "antd";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   LockOutlined,
   MailOutlined,
   PhoneOutlined,
+  UploadOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { FieldValues } from "react-hook-form";
 import { MdOutlineLocationOn } from "react-icons/md";
-import UploadImage from "../../components/form/UploadImage";
 import {
   useLoginMutation,
   useRegisterMutation,
@@ -25,6 +25,7 @@ import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { TResponse } from "../../global/global";
+import uploadImageToCloudinary from "../../utils/uploadImageToCloudinary";
 
 type LoginResponseData = {
   accessToken: string;
@@ -43,22 +44,69 @@ type LoginResponse = {
   data: LoginResponseData;
 };
 
+const IMGBB_API_KEY = "228f07b239d69be9bcc9d7f97fbf57de";
+const UPLOAD_LIMIT = 1;
+
+const UploadImage: React.FC<{
+  onImageUpload: (url: string) => void;
+  setUploading: (uploading: boolean) => void;
+}> = ({ onImageUpload, setUploading }) => {
+  const props: UploadProps = {
+    name: "image",
+    beforeUpload: async (_file) => {
+      setUploading(true);
+      const url = await uploadImageToCloudinary(_file);
+      if (url) {
+        onImageUpload(url);
+        toast.success(`${_file.name} file uploaded successfully`);
+      } else {
+        toast.error(`${_file.name} file upload failed.`);
+      }
+      setUploading(false);
+      return false;
+    },
+    multiple: false,
+  };
+
+  return (
+    <Upload
+      {...props}
+      style={{
+        width: "100%",
+      }}
+    >
+      <Button
+        style={{ width: "100%", height: "45px" }}
+        icon={<UploadOutlined />}
+      >
+        Click to Upload
+      </Button>
+    </Upload>
+  );
+};
+
 const Auth = () => {
   const [activeTab, setActiveTab] = useState("login");
   const [addUser] = useRegisterMutation();
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedImageUrls, setUploadedImageUrls] = useState<string>("");
   const navigate = useNavigate();
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
 
+  const handleImageUpload = (url: string) => {
+    setUploadedImageUrls(url);
+  };
+
   const handleLogin = async (data: FieldValues) => {
     const toastId = toast.loading("Creating...");
 
     try {
-      const res = await login(data) as unknown as TResponse<any>;;
+      const res = (await login(data)) as unknown as TResponse<any>;
 
       if (res.error) {
         toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
@@ -90,11 +138,18 @@ const Auth = () => {
     }
   };
 
+
   const handleSignUp = async (data: FieldValues) => {
     const toastId = toast.loading("Creating...");
 
     try {
-      const res = (await addUser(data)) as unknown as TResponse<any>;
+
+      const userData = {
+        ...data,
+        profileImage: uploadedImageUrls,
+      };
+
+      const res = (await addUser(userData)) as unknown as TResponse<any>;
       if (res.error) {
         toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
       } else {
@@ -208,10 +263,14 @@ const Auth = () => {
                 label="Adress"
                 prefixIcon={<MdOutlineLocationOn />}
               />
-              <UploadImage />
+              <UploadImage
+                onImageUpload={handleImageUpload}
+                setUploading={setIsUploading}
+              />
               <Button
                 htmlType="submit"
-                className="w-32 mx-auto h-9"
+                disabled={isUploading}
+                className="w-32 mx-auto h-9 mt-5"
                 type="primary"
               >
                 Register

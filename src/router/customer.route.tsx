@@ -17,6 +17,7 @@ import SlotList from "../pages/admin/SlotManagement/SlotList";
 import UpdateSlot from "../pages/admin/SlotManagement/UpdateSlot";
 import AllBooking from "../pages/admin/BookingManagement/AllBooking";
 import Checkout from "../pages/customer/Checkout";
+import Success from "../pages/customer/Success";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <Auth />,
       },
+      {
+        path: "/success",
+        element: <Success />,
+      },
+      
       {
         path: "checkout",
         element: (

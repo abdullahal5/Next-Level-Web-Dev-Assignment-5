@@ -10,6 +10,8 @@ export interface IBooking {
   room: string | null;
   slots: string[] | null;
   price: number | null;
+  totalPrice: number | null;
+  roomName: string | null;
 }
 
 const initialState: IBooking = {
@@ -22,6 +24,8 @@ const initialState: IBooking = {
   room: null,
   slots: [],
   price: null,
+  roomName: null,
+  totalPrice: null,
 };
 
 const bookingSlice = createSlice({
@@ -39,6 +43,8 @@ const bookingSlice = createSlice({
         room,
         slots,
         pricePerSlot,
+        roomName,
+        totalPrice,
       } = action.payload;
       state.name = name || null;
       state.email = email || null;
@@ -49,10 +55,25 @@ const bookingSlice = createSlice({
       state.room = room || null;
       state.slots = slots || [];
       state.price = pricePerSlot || null;
+      state.roomName = roomName || null;
+      state.totalPrice = totalPrice || null;
+    },
+    clearBooking: (state) => {
+      state.name = null;
+      state.email = null;
+      state.phone = null;
+      state.address = null;
+      state.date = [];
+      state.user = null;
+      state.room = null;
+      state.slots = [];
+      state.price = null;
+      state.roomName = null;
+      state.totalPrice = null;
     },
   },
 });
 
-export const { setBooking } = bookingSlice.actions;
+export const { setBooking, clearBooking } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

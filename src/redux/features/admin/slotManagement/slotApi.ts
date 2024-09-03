@@ -59,6 +59,16 @@ const ManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["slot"],
     }),
+    getMultipleSlot: builder.query({
+      query: (ids) => {
+        const idsString = ids.join(",");
+        return {
+          url: `slots/multiple/${idsString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["slot"],
+    }),
   }),
 });
 
@@ -68,4 +78,5 @@ export const {
   useGetAllSlotQuery,
   useUpdateSlotMutation,
   useDeleteSlotMutation,
+  useGetMultipleSlotQuery
 } = ManagementApi;

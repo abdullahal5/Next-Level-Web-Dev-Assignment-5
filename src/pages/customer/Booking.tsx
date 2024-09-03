@@ -15,8 +15,7 @@ import RAInput from "../../components/form/RAInput";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { toast } from "sonner";
-import { useCreateBookingMutation } from "../../redux/features/admin/bookingMangement/bookingApi";
-// import { TResponse } from "../../global/global";
+import "./Booking.css";
 import { setBooking } from "../../redux/features/booking/bookingSlice";
 
 interface BookingImage {
@@ -35,7 +34,7 @@ interface BookingResponse {
 }
 
 type SelectedDate = Date | null;
-type SelectedSlots = string[];
+type SelectedSlots = { slotId: string; date: string; time: string }[];
 
 export interface Root {
   success: boolean;
@@ -68,15 +67,12 @@ export interface Room {
 }
 
 const Booking = () => {
-  const [createBooking] = useCreateBookingMutation();
   const { id } = useParams<string>();
   const { data: booking, isFetching } = useGetSingleRoomQuery(
     id
   ) as BookingResponse;
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(null);
   const [selectedSlots, setSelectedSlots] = useState<SelectedSlots>([]);
-  const [slotIds, setSlotIds] = useState<string[]>([]);
-  const [slotDates, setSlotDates] = useState<string[]>([]);
   const [formatedDate, setFormatedDate] = useState<string | undefined | null>(
     undefined
   );
@@ -84,15 +80,19 @@ const Booking = () => {
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const bookingData = booking as unknown as SlotData;
-  const { data: getSlots, isFetching: slotFetch } = useGetAllSlotQuery(
-    formatedDate
-  ) as { data: Root };
-  const roomId = booking?.data?._id;
+  const { data, isFetching: slotFetch } = useGetAllSlotQuery(formatedDate);
 
-  const match1 = getSlots?.data?.filter((item) => item?.room?._id === roomId);
-  const match = formatedDate
-    ? getSlots?.data?.filter((item) => item?.room === roomId)
-    : match1;
+  const getSlots = data as unknown as Root;
+
+  const roomId = booking?.data?._id;
+  const match1 = getSlots?.data?.filter((item) => item?.date === formatedDate);
+
+  const availableSlot = getSlots?.data?.filter(
+    (room) => room?.room?._id === roomId
+  );
+
+  const match = formatedDate ? match1 : availableSlot;
+
   const matchDates = match?.map((slot) => parseISO(slot?.date)) || [];
 
   const formatDate = (date: Date): string => format(date, "yyyy-MM-dd");
@@ -116,14 +116,22 @@ const Booking = () => {
     return className;
   };
 
-  const handleSlotClick = (slot: string) => {
+  const handleSlotClick = (
+    slotId: string,
+    date: string,
+    startTime: string,
+    endTime: string
+  ) => {
+    const timeSlot = `${startTime} - ${endTime}`;
     setSelectedSlots((prev) =>
-      prev.includes(slot) ? prev.filter((s) => s !== slot) : [...prev, slot]
+      prev.find((slot) => slot.slotId === slotId)
+        ? prev.filter((s) => s.slotId !== slotId)
+        : [...prev, { slotId, date, time: timeSlot }]
     );
   };
 
-  const handleDeselectSlot = (slot: string) => {
-    setSelectedSlots((prev) => prev.filter((s) => s !== slot));
+  const handleDeselectSlot = (slotId: string) => {
+    setSelectedSlots((prev) => prev.filter((s) => s.slotId !== slotId));
   };
 
   const formatSlotTime = (startTime: string, endTime: string) =>
@@ -144,40 +152,21 @@ const Booking = () => {
     if (selectedSlots.length === 0) {
       return toast.error("Please select at least one slot");
     }
-    // const toastId = toast.loading("Booking");
 
     const userInfo = {
       name: user?.name,
       email: user?.email,
       phone: user?.phone,
       address: user?.address,
-      date: slotDates,
       user: user?._id,
       room: booking.data?._id,
-      slots: slotIds,
-      pricePerSlot: booking?.data?.pricePerSlot
+      pricePerSlot: booking?.data?.pricePerSlot,
+      totalPrice: booking?.data?.pricePerSlot * selectedSlots.length,
+      roomName: bookingData?.data?.name,
+      slots: selectedSlots.map((slot) => slot.slotId),
     };
-
     dispatch(setBooking(userInfo));
-    navigate("/checkout")
-    // try {
-    //   const res = (await createBooking(userInfo)) as unknown as TResponse<any>;
-    //   if (res.error) {
-    //     toast.error(res?.error?.data?.message, { id: toastId, duration: 2000 });
-    //     setSelectedSlots([])
-    //   } else {
-    //     toast.success(res.data.message, {
-    //       id: toastId,
-    //       duration: 2000,
-    //     });
-    //   }
-    // } catch (error: any) {
-    //   setSelectedSlots([]);
-    //   toast.success(error.message, {
-    //     id: toastId,
-    //     duration: 2000,
-    //   });
-    // }
+    navigate("/checkout");
   };
 
   return (
@@ -188,24 +177,24 @@ const Booking = () => {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto mb-10">
-          <div className="lg:w-[900px] mx-auto border mt-5 rounded-md">
+          <div className="lg:w-[900px] mx-auto mt-5 rounded-md">
             <img
               className="w-full h-[300px] object-cover rounded-md"
               src={bookingData?.data?.images[0]}
               alt=""
             />
-            <div className="flex lg:flex-row md:flex-row flex-col-reverse justify-center items-start lg:gap-20 md:gap-20 gap-10 mt-4 text-center px-10 pb-3">
+            <div className="flex border p-3 rounded-md lg:flex-row md:flex-row flex-col-reverse justify-center items-start lg:gap-20 md:gap-20 gap-10 mt-4 text-center px-10 pb-3">
               <div className="lg:w-[50%] md:w-[50%]">
                 {selectedSlots.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-3">
                     {selectedSlots.map((slot) => (
                       <div
-                        key={slot}
+                        key={slot.slotId}
                         className="bg-gray-200 border text-sm py-1 rounded-full flex items-center px-2 gap-1"
                       >
-                        <span>{slot}</span>
+                        <span>{` ${slot.time}`}</span>
                         <CloseOutlined
-                          onClick={() => handleDeselectSlot(slot)}
+                          onClick={() => handleDeselectSlot(slot.slotId)}
                           className="text-red-500 cursor-pointer"
                         />
                       </div>
@@ -227,21 +216,19 @@ const Booking = () => {
                         <span>Date</span>
                         <span>Duration</span>
                       </div>
-
-                      {match.map((slot) => (
+                      {match?.map((slot) => (
                         <div
                           key={slot._id}
-                          onClick={() => {
-                            setSlotDates([...slotDates, slot?.date]);
-                            setSlotIds([...slotIds, slot._id]);
+                          onClick={() =>
                             handleSlotClick(
-                              formatSlotTime(slot.startTime, slot.endTime)
-                            );
-                          }}
-                          className={`text-lg border px-8 py-2 rounded-md border-blue-500 text-blue-600 duration-300 hover:bg-blue-600 hover:text-white flex items-center justify-between cursor-pointer text-center font-semibold ${
-                            selectedSlots.includes(
-                              formatSlotTime(slot.startTime, slot.endTime)
+                              slot._id,
+                              slot.date,
+                              slot.startTime,
+                              slot.endTime
                             )
+                          }
+                          className={`text-lg border px-8 py-2 rounded-md border-blue-500 text-blue-600 duration-300 hover:bg-blue-600 hover:text-white flex items-center justify-between cursor-pointer text-center font-semibold ${
+                            selectedSlots.find((s) => s.slotId === slot._id)
                               ? "bg-blue-600 text-white"
                               : ""
                           }`}
@@ -264,78 +251,72 @@ const Booking = () => {
               </div>
               <div className="lg:flex-1 w-full">
                 <div className="p-3 rounded-md mx-auto flex items-center justify-center">
-                  <div className="p-5 border rounded-md">
-                    <p className="text-left text-2xl pb-3 font-semibold">
-                      ${booking?.data?.pricePerSlot}/h
-                    </p>
+                  <div className="p-5 border rounded-md w-full">
+                    <h2 className="text-xl font-semibold mb-2">Select Date</h2>
                     <DatePicker
                       selected={selectedDate}
                       onChange={handleChange}
                       inline
-                      dateFormat="MM/dd/yyyy"
                       dayClassName={getDayClassName}
+                      className="mb-4"
+                    />
+                    <Button
+                      onClick={handlePayment}
+                      type="primary"
+                      className="w-full h-[45px]"
+                    >
+                      Proceed to Checkout
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="border rounded-md mt-5 p-3">
+              <h1 className="text-center text-2xl font-semibold py-1">
+                User Information
+              </h1>
+              <RAForm onSubmit={onSubmit}>
+                <div className="flex lg:flex-row md:flex-row flex-col items-center justify-center gap-5 mx-5">
+                  <div className="lg:flex-1 md:flex-1 w-full">
+                    <RAInput
+                      type="text"
+                      disabled
+                      name="name"
+                      label="Name"
+                      defaultValue={user?.name}
+                    />
+                  </div>
+                  <div className="lg:flex-1 md:flex-1 w-full">
+                    <RAInput
+                      type="text"
+                      disabled
+                      name="email"
+                      label="Email"
+                      defaultValue={user?.email}
                     />
                   </div>
                 </div>
-                <Button
-                  htmlType="submit"
-                  onClick={handlePayment}
-                  type="primary"
-                  className="h-11 w-full text-lg mt-4"
-                >
-                  Checkout
-                </Button>
-              </div>
-            </div>
-            <hr className="mx-5 my-3" />
-            <div className="p-3">
-              <h1 className="text-3xl font-semibold text-center py-3">
-                User Information
-              </h1>
-              <div className="border rounded-md w-full p-5 lg:h-[250px]">
-                <RAForm onSubmit={onSubmit}>
-                  <div className="flex lg:flex-row md:flex-row flex-col items-center justify-center gap-5 mx-5">
-                    <div className="lg:flex-1 md:flex-1 w-full">
-                      <RAInput
-                        type="text"
-                        disabled
-                        name="name"
-                        label="Name"
-                        defaultValue={user?.name}
-                      />
-                    </div>
-                    <div className="lg:flex-1 md:flex-1 w-full">
-                      <RAInput
-                        type="text"
-                        disabled
-                        name="email"
-                        label="Email"
-                        defaultValue={user?.email}
-                      />
-                    </div>
+                <div className="flex lg:flex-row md:flex-row flex-col items-center justify-center gap-5 mx-5">
+                  <div className="lg:flex-1 md:flex-1 w-full">
+                    <RAInput
+                      type="text"
+                      disabled
+                      name="address"
+                      label="Address"
+                      defaultValue={user?.address}
+                    />
                   </div>
-                  <div className="flex lg:flex-row md:flex-row flex-col items-center justify-center gap-5 mx-5">
-                    <div className="lg:flex-1 md:flex-1 w-full">
-                      <RAInput
-                        type="text"
-                        disabled
-                        name="address"
-                        label="Address"
-                        defaultValue={user?.address}
-                      />
-                    </div>
-                    <div className="lg:flex-1 md:flex-1 w-full">
-                      <RAInput
-                        type="text"
-                        disabled
-                        name="phone"
-                        label="Phone"
-                        defaultValue={user?.phone}
-                      />
-                    </div>
+                  <div className="lg:flex-1 md:flex-1 w-full">
+                    <RAInput
+                      type="text"
+                      disabled
+                      name="phone"
+                      label="Phone"
+                      defaultValue={user?.phone}
+                    />
                   </div>
-                </RAForm>
-              </div>
+                </div>
+              </RAForm>
             </div>
           </div>
         </div>
