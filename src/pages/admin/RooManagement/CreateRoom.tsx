@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import type { UploadProps } from "antd";
 import { Button, Upload } from "antd";
 import RAForm from "../../../components/form/RAForm";
 import RAInput from "../../../components/form/RAInput";
@@ -36,7 +35,7 @@ const UploadImage: React.FC<{
   onImageUpload: (url: string) => void;
   setUploading: (uploading: boolean) => void;
 }> = ({ onImageUpload, setUploading }) => {
-  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+  const [, setUploadedFiles] = useState<string[]>([]);
 
   const props = {
     name: "image",

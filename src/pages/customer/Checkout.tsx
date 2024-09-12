@@ -8,6 +8,7 @@ import { useGetMultipleSlotQuery } from "../../redux/features/admin/slotManageme
 import { ColumnsType } from "antd/es/table";
 import { useCreateBookingMutation } from "../../redux/features/admin/bookingMangement/bookingApi";
 import { clearBooking } from "../../redux/features/booking/bookingSlice";
+import { useState } from "react";
 
 export interface Checkout {
   name: string | null;
@@ -53,7 +54,8 @@ const Checkout = () => {
   const data: Checkout = useAppSelector((state) => state.booking);
   const { data: slot } = useGetMultipleSlotQuery(data.slots);
   const [createBooking] = useCreateBookingMutation();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
 
   const slotsData: SlotsResponse = slot;
 
@@ -103,6 +105,7 @@ const Checkout = () => {
   }));
 
   const handleBookingSubmit = async () => {
+    setLoading(true);
     const BookingDetails = {
       date: slotsData.data.map((item) => item.date),
       slots: slotsData.data.map((item) => item._id),
@@ -110,9 +113,11 @@ const Checkout = () => {
       user: data.user,
     };
     const res = await createBooking(BookingDetails);
-    window.location.href = res?.data?.data?.url;
-    if(res.data){
-      dispatch(clearBooking())
+    console.log(res.data?.data.url);
+    window.location.href = res.data?.data.url;
+    if (res?.data) {
+      setLoading(false);
+      dispatch(clearBooking());
     }
   };
   return (
@@ -205,6 +210,7 @@ const Checkout = () => {
             <Button
               onClick={handleBookingSubmit}
               type="primary"
+              loading={loading}
               className="w-full font-medium h-[45px]"
             >
               Pay ${data?.totalPrice}

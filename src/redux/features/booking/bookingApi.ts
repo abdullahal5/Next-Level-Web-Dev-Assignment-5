@@ -9,9 +9,15 @@ const roomManagementApi = baseApi.injectEndpoints({
       }),
       providesTags: ["booking"],
     }),
+    myBooking: builder.query({
+      query: () => ({
+        url: `/my-bookings`,
+        method: "GET",
+      }),
+      providesTags: ["booking"],
+    }),
   }),
 });
 
-export const {
-  useGetSingleBookingsQuery,
-} = roomManagementApi;
+export const { useGetSingleBookingsQuery, useMyBookingQuery } =
+  roomManagementApi;

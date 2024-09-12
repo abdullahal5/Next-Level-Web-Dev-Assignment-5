@@ -18,6 +18,7 @@ import UpdateSlot from "../pages/admin/SlotManagement/UpdateSlot";
 import AllBooking from "../pages/admin/BookingManagement/AllBooking";
 import Checkout from "../pages/customer/Checkout";
 import Success from "../pages/customer/Success";
+import MyBookings from "../pages/customer/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
         path: "/success",
         element: <Success />,
       },
-      
+
       {
         path: "checkout",
         element: (
@@ -138,6 +139,14 @@ const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: "/:role/my-bookings",
+        element: (
+          <Protected>
+            <MyBookings />
+          </Protected>
+        ),
       },
     ],
   },

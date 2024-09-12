@@ -11,7 +11,6 @@ const Links = [
   { path: "/contact", name: "Contact Us" },
 ];
 
-
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,9 +23,11 @@ const Navbar = () => {
       key: "1",
       label: (
         <>
-          <Link to={`/${user?.role}/dashboard`}>
-            {user?.role === "user" ? "My Bookings" : "Dashboard"}
-          </Link>
+          {user?.role === "user" ? (
+            <Link to={`/${user?.role}/my-bookings`}>My Bookings</Link>
+          ) : (
+            <Link to={`/${user?.role}/dashboard`}>Dashboard</Link>
+          )}
         </>
       ),
     },

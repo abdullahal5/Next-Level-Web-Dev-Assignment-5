@@ -62,6 +62,7 @@ const ManagementApi = baseApi.injectEndpoints({
     getMultipleSlot: builder.query({
       query: (ids) => {
         const idsString = ids.join(",");
+        console.log(idsString)
         return {
           url: `slots/multiple/${idsString}`,
           method: "GET",

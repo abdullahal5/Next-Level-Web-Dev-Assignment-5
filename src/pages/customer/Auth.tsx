@@ -44,9 +44,6 @@ type LoginResponse = {
   data: LoginResponseData;
 };
 
-const IMGBB_API_KEY = "228f07b239d69be9bcc9d7f97fbf57de";
-const UPLOAD_LIMIT = 1;
-
 const UploadImage: React.FC<{
   onImageUpload: (url: string) => void;
   setUploading: (uploading: boolean) => void;
