@@ -34,7 +34,7 @@ const AllUser = () => {
       title: "Profile",
       dataIndex: "profileImage",
       key: "profileImage",
-      align: "center",
+      align: "center" as const,
       render: (data: string | undefined) => (
         <img className="w-14 h-14 rounded-full" src={data} alt="" />
       ),
@@ -43,37 +43,37 @@ const AllUser = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      align: "center",
+      align: "center" as const,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      align: "center",
+      align: "center" as const,
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      align: "center",
+      align: "center" as const,
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      align: "center",
+      align: "center" as const,
     },
     {
       title: "Role",
       dataIndex: "role",
       key: "role",
-      align: "center",
+      align: "center" as const,
     },
     {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      align: "center",
+      align: "center" as const,
       render: (createdAt: string) => new Date(createdAt).toLocaleDateString(),
     },
   ];
