@@ -14,7 +14,7 @@ import { logout, setUser } from "../features/auth/authSlice";
 // http://localhost:5000
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://next-level-web-dev-assignment-3.vercel.app/api/v1",
+  baseUrl: "http://localhost:5000/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;
@@ -66,6 +66,6 @@ const BaseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: BaseQueryWithRefreshToken,
-  tagTypes: ["room", "slot", "booking"],
+  tagTypes: ["room", "slot", "booking", "user"],
   endpoints: () => ({}),
 });

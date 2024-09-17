@@ -91,6 +91,8 @@ const Booking = () => {
     (room) => room?.room?._id === roomId
   );
 
+  const availableDates = availableSlot?.map((slot) => parseISO(slot?.date)) || [];
+
   const match = formatedDate ? match1 : availableSlot;
 
   const matchDates = match?.map((slot) => parseISO(slot?.date)) || [];
@@ -258,6 +260,7 @@ const Booking = () => {
                       onChange={handleChange}
                       inline
                       dayClassName={getDayClassName}
+                      excludeDates={matchDates.length > 0 ? [] : availableDates}
                       className="mb-4"
                     />
                     <Button

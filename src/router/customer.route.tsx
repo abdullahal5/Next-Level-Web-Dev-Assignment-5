@@ -19,6 +19,8 @@ import AllBooking from "../pages/admin/BookingManagement/AllBooking";
 import Checkout from "../pages/customer/Checkout";
 import Success from "../pages/customer/Success";
 import MyBookings from "../pages/customer/MyBookings";
+import Dashboard from "../pages/admin/dashboard/Dashboard";
+import AllUser from "../pages/admin/userManagement/AllUser";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +85,14 @@ const router = createBrowserRouter([
         ),
         children: [
           {
+            index: true,
+            element: (
+              <Protected>
+                <Dashboard />
+              </Protected>
+            ),
+          },
+          {
             path: "create-room",
             element: (
               <Protected>
@@ -135,6 +145,14 @@ const router = createBrowserRouter([
             element: (
               <Protected>
                 <AllBooking />
+              </Protected>
+            ),
+          },
+          {
+            path: "allUser",
+            element: (
+              <Protected>
+                <AllUser />
               </Protected>
             ),
           },

@@ -143,6 +143,38 @@ const Sidebar = () => {
                 </div>
               </div>
             </div>
+            <div>
+              <button
+                onClick={() => toggleDropdown("userManagement")}
+                className="w-full flex items-center gap-1 text-left border text-blue-600 px-3 py-2 rounded-md text-base font-medium focus:outline-none"
+              >
+                {openDropdown === "userManagement" ? (
+                  <FaAngleUp />
+                ) : (
+                  <FaAngleDown />
+                )}{" "}
+                User Management
+              </button>
+              <div
+                ref={bookManagementRef}
+                style={{
+                  height:
+                    openDropdown === "userManagement"
+                      ? getHeight(bookManagementRef)
+                      : "0px",
+                }}
+                className={`overflow-hidden transition-all duration-300`}
+              >
+                <div className="pl-4 space-y-2">
+                  <Link
+                    to={`/${user?.role}/dashboard/allUser`}
+                    className="block text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    All User
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

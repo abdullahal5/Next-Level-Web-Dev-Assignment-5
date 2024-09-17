@@ -176,7 +176,7 @@ const AllBookings = () => {
         key: booking._id,
         roomName: booking.room.name,
         userName: booking.user.name,
-        date: booking.date,
+        date: booking.date[0],
         time: booking.createdAt,
         endTime: booking.slots.endTime || "N/A",
         status:
