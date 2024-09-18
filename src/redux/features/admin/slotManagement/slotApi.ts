@@ -5,7 +5,6 @@ const ManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createSlot: builder.mutation<void, any>({
       query: (newRoom) => {
-        console.log(newRoom);
         return {
           url: "/slots",
           method: "POST",
@@ -16,7 +15,6 @@ const ManagementApi = baseApi.injectEndpoints({
     }),
     getAllSlot: builder.query<void, string | undefined | null>({
       query: (date) => {
-        // console.log(date)
         let url = "/slots";
 
         if (date) {
@@ -62,7 +60,6 @@ const ManagementApi = baseApi.injectEndpoints({
     getMultipleSlot: builder.query({
       query: (ids) => {
         const idsString = ids.join(",");
-        console.log(idsString)
         return {
           url: `slots/multiple/${idsString}`,
           method: "GET",

@@ -70,8 +70,6 @@ const Success = () => {
   const { data } = useGetSingleBookingsQuery(id);
   const singleBooking: Root = data;
 
-  console.log(singleBooking)
-
    const handleGoHome = () => {
      navigate("/");
    };

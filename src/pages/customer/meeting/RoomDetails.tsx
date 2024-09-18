@@ -52,7 +52,7 @@ const RoomDetails = () => {
     if (!roomData?.images || roomData.images.length <= 4) return null;
 
     return (
-      <div className="flex flex-col gap-3 w-[200px]">
+      <div className="flex flex-col gap-3 w-full md:w-[200px]">
         {roomData.images.slice(4).map((image, idx) => (
           <img
             key={idx}
@@ -66,28 +66,31 @@ const RoomDetails = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="flex items-start gap-4">
-        <div className="mx-auto">
-          <div className="mt-5 flex gap-3 lg:mx-0 md:mx-0 mx-5">
-            <div className="w-[500px]">
-              <div>
-                <img
-                  className="rounded-md border object-cover w-full"
-                  src={roomData?.images[0]}
-                  alt="Main Room"
-                />
-              </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col lg:flex-row lg:items-start gap-4">
+        {/* Image section */}
+        <div className="w-full lg:w-[500px] mx-auto">
+          <div className="mt-5 flex flex-col lg:flex-row gap-3">
+            <div className="w-full lg:w-[500px]">
+              <img
+                className="rounded-md border object-cover w-full"
+                src={roomData?.images[0]}
+                alt="Main Room"
+              />
               {renderUnderImages()}
             </div>
             {renderRightImages()}
           </div>
         </div>
-        <div className="px-10 py-3 mx-auto bg-gray-50 mt-5 rounded-lg shadow-inner">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-6">
+
+        {/* Details section */}
+        <div className="px-5 lg:px-10 py-3 bg-gray-50 mt-5 lg:mt-0 rounded-lg shadow-inner flex-grow">
+          <h1 className="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 lg:mb-6">
             {roomData?.name}
           </h1>
-          <div className="space-y-5">
+
+          <div className="space-y-4 lg:space-y-5">
+            {/* Room Number */}
             <div className="flex border p-3 rounded-md items-center gap-3 text-gray-700">
               <FaDoorOpen className="text-gray-600" />
               <div>
@@ -97,6 +100,8 @@ const RoomDetails = () => {
                 </span>
               </div>
             </div>
+
+            {/* Capacity */}
             <div className="flex items-center border p-3 rounded-md gap-3 text-gray-700">
               <FaUsers className="text-gray-600" />
               <div>
@@ -106,6 +111,8 @@ const RoomDetails = () => {
                 </span>
               </div>
             </div>
+
+            {/* Floor Number */}
             <div className="flex items-center border p-3 rounded-md gap-3 text-gray-700">
               <FaBuilding className="text-gray-600" />
               <div>
@@ -115,6 +122,8 @@ const RoomDetails = () => {
                 </span>
               </div>
             </div>
+
+            {/* Price per Slot */}
             <div className="flex items-center border p-3 rounded-md gap-3 text-gray-700">
               <FaDollarSign className="text-gray-600" />
               <div>
@@ -124,22 +133,20 @@ const RoomDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="flex items-center border p-3 rounded-md gap-3 text-gray-700">
-              <div>
-                <span className="text-lg text-gray-900 gap-2 ml-2 flex items-center justify-center">
-                  {roomData?.amenities.map((item, idx) => {
-                    return (
-                      <div
-                        key={idx}
-                        className="text-sm font-semibold items-center justify-center mx-auto bg-gray-200 px-2 py-1 rounded-md gap-2"
-                      >
-                        {item}
-                      </div>
-                    );
-                  })}
-                </span>
-              </div>
+
+            {/* Amenities */}
+            <div className="flex flex-wrap items-center border p-3 rounded-md gap-2 text-gray-700">
+              {roomData?.amenities.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="text-sm font-semibold items-center bg-gray-200 px-2 py-1 rounded-md"
+                >
+                  {item}
+                </div>
+              ))}
             </div>
+
+            {/* Book Now Button */}
             <Link to={`/meeting-rooms/${id}/booking`}>
               <Button
                 type="primary"

@@ -97,6 +97,7 @@ const RooMList = () => {
         loading={isFetching}
         size="large"
         pagination={false}
+        scroll={{ x: "max-content" }}
       />
     </>
   );

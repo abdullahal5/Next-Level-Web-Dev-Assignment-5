@@ -100,6 +100,7 @@ const AllUser = () => {
         loading={isFetching}
         size="large"
         pagination={false}
+        scroll={{ x: "max-content" }}
       />
     </>
   );

@@ -113,7 +113,6 @@ const Checkout = () => {
       user: data.user,
     };
     const res = await createBooking(BookingDetails);
-    console.log(res.data?.data.url);
     window.location.href = res.data?.data.url;
     if (res?.data) {
       setLoading(false);

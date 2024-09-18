@@ -101,17 +101,17 @@ const UpdateSlot: React.FC = () => {
   };
 
   return (
-    <div className="w-[500px] text-center mx-auto py-5">
+    <div className="py-5">
       {isFetching ? (
         <div className="flex items-center justify-center h-[80vh]">
           <FaSpinner fontSize={"3rem"} className="animate-spin" />
         </div>
       ) : (
-        <div className="w-[500px] text-center mx-auto">
+        <div className="lg:w-[500px] md:w-[500px] w-full text-center lg:mx-auto md:mx-auto">
           <Titlebar title="Update Slot" />
           <RAForm onSubmit={handleUpdateSlot}>
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
+            <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+              <div className="flex-1 w-full">
                 <RASelect
                   name="room"
                   options={roomsOption}
@@ -119,7 +119,7 @@ const UpdateSlot: React.FC = () => {
                   defaultValue={defaultRoom?.value}
                 />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <RADatePicker
                   defaultValue={slotSingleData?.data?.date}
                   name="date"
@@ -127,15 +127,15 @@ const UpdateSlot: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
+            <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+              <div className="flex-1 w-full">
                 <RATimePicker
                   defaultValue={slotSingleData?.data?.startTime}
                   name="startTime"
                   label="Start Time"
                 />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <RATimePicker
                   defaultValue={slotSingleData?.data?.endTime}
                   name="endTime"

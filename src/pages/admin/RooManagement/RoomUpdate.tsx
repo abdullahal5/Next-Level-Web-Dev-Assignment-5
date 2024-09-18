@@ -144,7 +144,7 @@ const RoomUpdate: React.FC = () => {
   }, [roomData]);
 
   return (
-    <div className="w-[500px] text-center mx-auto py-5">
+    <div className="lg:w-[500px] md:w-[500px] w-full text-center lg:mx-auto md:mx-auto">
       <Titlebar title="Update Room" />
       {isFetching ? (
         <div className="flex items-center justify-center h-[80vh]">
@@ -152,8 +152,8 @@ const RoomUpdate: React.FC = () => {
         </div>
       ) : (
         <RAForm onSubmit={handleUpdateRoom}>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
+          <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+            <div className="flex-1 w-full">
               <RAInput
                 defaultValue={roomData?.data?.name ?? ""}
                 type="text"
@@ -161,7 +161,7 @@ const RoomUpdate: React.FC = () => {
                 label="Name"
               />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <RAInput
                 defaultValue={roomData?.data?.roomNo ?? ""}
                 type="number"
@@ -170,8 +170,8 @@ const RoomUpdate: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
+          <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+            <div className="flex-1 w-full">
               <RAInput
                 defaultValue={roomData?.data?.capacity ?? ""}
                 type="number"
@@ -179,7 +179,7 @@ const RoomUpdate: React.FC = () => {
                 label="Capacity"
               />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <RAInput
                 defaultValue={roomData?.data?.floorNo ?? ""}
                 type="number"
@@ -188,8 +188,8 @@ const RoomUpdate: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
+          <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+            <div className="flex-1 w-full">
               <RAInput
                 defaultValue={roomData?.data?.pricePerSlot ?? ""}
                 type="number"
@@ -197,7 +197,7 @@ const RoomUpdate: React.FC = () => {
                 label="Price Per Slot"
               />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <RASelect
                 options={roomFacilitiesOption}
                 mode="multiple"

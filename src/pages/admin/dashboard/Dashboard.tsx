@@ -2,7 +2,7 @@ import {
   FaSpinner,
   FaUserFriends,
   FaBookOpen,
-  FaCalendarCheck,
+  FaDollarSign,
 } from "react-icons/fa";
 import { useGetAllDashboardDataQuery } from "../../../redux/features/admin/dashboard/dashboardApi";
 import { Card, Col, Row } from "antd";
@@ -18,6 +18,8 @@ import {
   AreaChart,
   ResponsiveContainer,
   Legend,
+  Label,
+  Brush,
 } from "recharts";
 
 export interface Root {
@@ -37,15 +39,8 @@ export interface Data {
     _id: string;
     roomName: string;
     totalBookings: number;
-    totalAmount: number;
+    totalRevenue: number;
     totalSlots: number;
-    bookings: Array<{
-      bookingId: string;
-      user: string;
-      date: Array<string>;
-      amount: number;
-      status: string;
-    }>[];
   }>;
 }
 
@@ -62,30 +57,20 @@ const Dashboard = () => {
   }
 
   const DashboardData: Root | undefined = data as Root | undefined;
-  console.log(DashboardData?.data.result);
 
   const chartData =
     DashboardData?.data.result.map((item) => ({
       name: item.roomName,
       totalBookings: item.totalBookings,
-      totalAmount: item.totalAmount,
+      totalRevenue: item.totalRevenue,
       totalSlots: item.totalSlots,
     })) || [];
 
-  const keys = ["totalAmount", "totalBookings", "totalSlots"];
+  console.log(DashboardData?.data.result);
 
-  const colors = [
-    "#8884d8",
-    "#82ca9d",
-    "#ff7300",
-    "#ffc658",
-    "#d5aa4d",
-    "#a055f8",
-    "#56c9f9",
-    "#ff639a",
-    "#e85d75",
-    "#2f8f8f",
-  ];
+  const keys = ["totalRevenue", "totalBookings", "totalSlots"];
+
+  const colors = ["#8884d8", "#82ca9d", "#ff7300"];
 
   return (
     <div className="p-4">
@@ -162,37 +147,34 @@ const Dashboard = () => {
             </Col>
 
             <Col xs={24} sm={12} md={12} lg={6}>
-              <Link to={`/${user?.role}/dashboard/get-slot`}>
-                <Card
-                  title="Total Slots"
-                  bordered={false}
-                  className="shadow-lg rounded-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, #fff0f6, #ffcad6)",
-                  }}
-                >
-                  <div className="flex items-center justify-between">
-                    <FaCalendarCheck
-                      style={{ fontSize: "40px", color: "#eb2f96" }}
-                    />
-                    <h1 className="text-3xl font-bold">
-                      {DashboardData.data.totalSlots}
-                    </h1>
-                  </div>
-                </Card>
-              </Link>
+              <Card
+                title="Total Paid"
+                bordered={false}
+                className="shadow-lg rounded-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, #fff0f6, #ffcad6)",
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <FaDollarSign
+                    style={{ fontSize: "40px", color: "#eb2f96" }}
+                  />
+                  <h1 className="text-3xl font-bold">
+                    ${DashboardData.data.totalPaid}
+                  </h1>
+                </div>
+              </Card>
             </Col>
           </Row>
 
-          <h1 className="text-3xl font-semibold pb-7 pt-12">
-            Revenue of each Rooms
+          <h1 className="text-3xl font-semibold pb-5 pt-12">
+            Revenue of Each Room
           </h1>
 
-          <ResponsiveContainer width="100%" height={500}>
+          <ResponsiveContainer width="100%" height={450}>
             <AreaChart
               data={chartData}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+              margin={{ top: 20, right: 30, left: 20, bottom: 40 }}
             >
               <defs>
                 {keys.map((key, index) => (
@@ -218,10 +200,29 @@ const Dashboard = () => {
                 ))}
               </defs>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, 1000]} />
+              <XAxis dataKey="name">
+                <Label value="Room Name" offset={0} position="insideBottom" />
+              </XAxis>
+              <YAxis>
+                <Label
+                  value="Amount/Bookings"
+                  angle={-90}
+                  position="insideLeft"
+                />
+              </YAxis>
               <Legend />
-              <Tooltip />
+              <Tooltip
+                content={({ payload, label }) => (
+                  <div className="p-2 bg-white border rounded">
+                    <h4>{label}</h4>
+                    {payload?.map((entry, index) => (
+                      <div key={index} style={{ color: entry.stroke }}>
+                        {entry.name}: {entry.value}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              />
               {keys.map((key, index) => (
                 <Area
                   key={key}
@@ -230,8 +231,20 @@ const Dashboard = () => {
                   stroke={colors[index % colors.length]}
                   fillOpacity={1}
                   fill={`url(#color${key})`}
+                  dot={{
+                    stroke: colors[index % colors.length],
+                    strokeWidth: 2,
+                    r: 4,
+                  }}
                 />
               ))}
+              <Brush
+                dataKey="name"
+                height={30}
+                stroke="#8884d8"
+                startIndex={0}
+                endIndex={chartData.length - 1}
+              />
             </AreaChart>
           </ResponsiveContainer>
         </>

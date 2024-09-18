@@ -130,30 +130,30 @@ const CreateRoom: React.FC = () => {
   };
 
   return (
-    <div className="w-[500px] text-center mx-auto">
+    <div className="lg:w-[500px] md:w-[500px] w-full text-center lg:mx-auto md:mx-auto">
       <Titlebar title="Create Room" />
       <RAForm resolver={zodResolver(roomSchema)} onSubmit={handleCreateRoom}>
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
+        <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+          <div className="flex-1 w-full">
             <RAInput type="text" name="name" label="Name" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <RAInput type="number" name="roomNo" label="Room No." />
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
+        <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+          <div className="flex-1 w-full">
             <RAInput type="number" name="capacity" label="Capacity" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <RAInput type="number" name="floorNo" label="Floor No" />
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
+        <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+          <div className="flex-1 w-full">
             <RAInput type="number" name="pricePerSlot" label="Price Per Slot" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <RASelect
               options={roomFacilitiesOption}
               mode="multiple"

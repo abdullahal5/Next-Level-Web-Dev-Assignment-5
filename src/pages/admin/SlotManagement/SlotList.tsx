@@ -114,6 +114,7 @@ const SlotList = () => {
         size="large"
         pagination={false}
         rowKey={"_id"}
+        scroll={{ x: "max-content" }}
       />
     </>
   );

@@ -59,7 +59,7 @@ const CreateSlot = () => {
   };
 
   return (
-    <div className="w-[500px] text-center mx-auto">
+    <div className="lg:w-[500px] md:w-[500px] w-full text-center lg:mx-auto md:mx-auto">
       <Titlebar title="Create Slot" />
       {isFetching ? (
         <div className="flex items-center justify-center h-[80vh]">
@@ -67,19 +67,19 @@ const CreateSlot = () => {
         </div>
       ) : (
         <RAForm onSubmit={handleCreateSlot}>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
+          <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+            <div className="flex-1 w-full">
               <RASelect name="room" options={roomsOption} label="Room" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <RADatePicker name="date" label="Date" />
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
+          <div className="flex lg:flex-row md:flex-row flex-col items-center gap-4">
+            <div className="flex-1 w-full">
               <RATimePicker name="startTime" label="Start Time" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <RATimePicker name="endTime" label="End Time" />
             </div>
           </div>
