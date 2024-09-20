@@ -21,11 +21,13 @@ import Success from "../pages/customer/Success";
 import MyBookings from "../pages/customer/MyBookings";
 import Dashboard from "../pages/admin/dashboard/Dashboard";
 import AllUser from "../pages/admin/userManagement/AllUser";
+import Error from "../pages/error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",

@@ -30,10 +30,9 @@ const Sidebar = () => {
     }
   };
 
-  // Close sidebar when navigating to a new route on mobile
   useEffect(() => {
     if (isSidebarOpen) {
-      setIsSidebarOpen(false); // Close sidebar on route change
+      setIsSidebarOpen(false);
     }
   }, [location]);
 
@@ -54,12 +53,11 @@ const Sidebar = () => {
       </button>
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-screen w-64 pt-10 bg-gray-100 p-4 transition-transform duration-300 md:relative md:w-64 ${
+        className={`fixed top-0 left-0 h-screen w-64 lg:pt-0 md:pt-0 pt-10 bg-gray-100 p-4 transition-transform duration-300 md:relative md:w-64 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 z-40`}
       >
         <div className="space-y-3 pt-8">
-          {/* Room Management */}
           <div>
             <button
               onClick={() => toggleDropdown("roomManagement")}
@@ -107,7 +105,6 @@ const Sidebar = () => {
             </div>
           </div>
 
-          {/* Slot Management */}
           <div>
             <button
               onClick={() => toggleDropdown("slotManagement")}
@@ -155,7 +152,6 @@ const Sidebar = () => {
             </div>
           </div>
 
-          {/* Book Management */}
           <div>
             <button
               onClick={() => toggleDropdown("bookManagement")}
@@ -193,7 +189,6 @@ const Sidebar = () => {
             </div>
           </div>
 
-          {/* User Management */}
           <div>
             <button
               onClick={() => toggleDropdown("userManagement")}

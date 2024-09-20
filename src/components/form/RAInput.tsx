@@ -2,6 +2,7 @@ import { Form, Input } from "antd";
 import { ReactNode, useState } from "react";
 import { Controller } from "react-hook-form";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import TextArea from "antd/es/input/TextArea";
 
 type TInputProps = {
   type: string;
@@ -12,6 +13,7 @@ type TInputProps = {
   iconPosition?: "prefix" | "suffix";
   prefixIcon?: ReactNode;
   suffixIcon?: ReactNode;
+  placeholder?: string;
 };
 
 const RAInput = ({
@@ -22,6 +24,7 @@ const RAInput = ({
   defaultValue,
   prefixIcon,
   iconPosition = "prefix",
+  placeholder,
 }: TInputProps) => {
   const [inputType, setInputType] = useState(type);
 
@@ -34,28 +37,42 @@ const RAInput = ({
       <Controller
         name={name}
         defaultValue={defaultValue ?? undefined}
-        render={({ field, fieldState: { error } }) => (
+        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
           <Form.Item label={label}>
-            <Input
-              size="large"
-              {...field}
-              className="border h-11 w-full"
-              type={inputType}
-              disabled={disabled}
-              id={name}
-              prefix={iconPosition === "prefix" ? prefixIcon : null}
-              suffix={
-                type === "password" ? (
-                  <div onClick={togglePasswordVisibility}>
-                    {inputType === "password" ? (
-                      <EyeInvisibleOutlined />
-                    ) : (
-                      <EyeTwoTone />
-                    )}
-                  </div>
-                ) : null
-              }
-            />
+            {type === "textarea" ? (
+              <TextArea
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                disabled={disabled}
+                placeholder={placeholder}
+                autoSize={{ minRows: 3, maxRows: 5 }}
+              />
+            ) : (
+              <Input
+                size="large"
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                className="border h-11 w-full"
+                type={inputType}
+                disabled={disabled}
+                id={name}
+                prefix={iconPosition === "prefix" ? prefixIcon : null}
+                placeholder={placeholder}
+                suffix={
+                  type === "password" ? (
+                    <div onClick={togglePasswordVisibility}>
+                      {inputType === "password" ? (
+                        <EyeInvisibleOutlined />
+                      ) : (
+                        <EyeTwoTone />
+                      )}
+                    </div>
+                  ) : null
+                }
+              />
+            )}
             {error && (
               <small className="text-center text-red-500 font-semibold">
                 {error.message}

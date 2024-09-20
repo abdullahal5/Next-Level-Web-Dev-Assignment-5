@@ -18,36 +18,23 @@ type TFormProps = {
   children: ReactNode;
 } & TFormConfig;
 
-const RAForm = ({
-  onSubmit,
-  children,
-  defaultValues,
-  resolver,
-}: TFormProps) => {
-  const formConfig: TFormConfig = {};
-
-  if (defaultValues) {
-    formConfig["defaultValues"] = defaultValues;
-  }
-
-  if (resolver) {
-    formConfig["resolver"] = resolver;
-  }
-
-  const methods = useForm(formConfig);
+const RAForm = ({ onSubmit, children, defaultValues, resolver }: TFormProps) => {
+  const methods = useForm({
+    defaultValues,
+    resolver,
+  });
 
   const submit: SubmitHandler<FieldValues> = (data) => {
     onSubmit(data);
-    // methods.reset();
+    methods.reset();
   };
+
   return (
-    <div>
-      <FormProvider {...methods}>
-        <Form layout="vertical" onFinish={methods.handleSubmit(submit)}>
-          {children}
-        </Form>
-      </FormProvider>
-    </div>
+    <FormProvider {...methods}>
+      <Form layout="vertical" onFinish={methods.handleSubmit(submit)}>
+        {children}
+      </Form>
+    </FormProvider>
   );
 };
 

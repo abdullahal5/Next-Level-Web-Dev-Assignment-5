@@ -69,11 +69,11 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-lg font-bold flex items-center">
               <img
-                src="https://i.ibb.co/5nFKFkn/images-removebg-preview.png"
-                className="w-10"
+                src="https://i.ibb.co.com/2gcCpFb/images-removebg-preview.png"
+                className="w-16 pr-1"
                 alt=""
               />
-              Room <span className="text-blue-600 pl-2">Aura</span>
+              Hotel <span className="text-blue-600 pl-2">Relax</span>
             </Link>
           </div>
 
