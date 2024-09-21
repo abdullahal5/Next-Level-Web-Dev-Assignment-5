@@ -7,7 +7,7 @@ const WhyChooseUs = () => {
       <Titlebar title="Why Choose Us?" />
       
       <div className="flex gap-10 lg:flex-row md:flex-row flex-col items-center justify-around p-8 bg-gradient-to-r from-blue-50 to-gray-100 rounded-lg shadow-md">
-        <div className="max-w-md space-y-6">
+        <div className="lg:max-w-md md:w-[60%] text-center lg:text-left md:text-center space-y-6">
           <h1 className="text-4xl font-bold text-gray-900">
             Secure <span className="text-blue-600">Transactions</span>
           </h1>
@@ -15,7 +15,7 @@ const WhyChooseUs = () => {
             We have integrated Amar Pay, a trusted and reliable payment gateway in Bangladesh. Amar Pay offers a seamless payment experience, supporting a wide range of payment methods including mobile banking, credit/debit cards, and bank transfers. Whether you're making a payment online or through your mobile, Amar Pay ensures a smooth and secure transaction process.
           </p>
         </div>
-        <div className="lg:w-[440px] md:w-[440px] w-[330px] lg:h-[250px] md:h-[250px]">
+        <div className="lg:w-[440px] md:w-[440px] px-3 mx-auto lg:h-[250px] md:h-[250px]">
           <iframe
             src="https://www.youtube.com/embed/gwntHc3UTUk?si=LFtQvd3EHoWTlThi"
             title="YouTube video player"
@@ -27,7 +27,7 @@ const WhyChooseUs = () => {
         </div>
       </div>
 
-      <div className="lg:flex-row md:flex-row flex-col flex items-center justify-around bg-white p-8 rounded-lg shadow-md">
+      <div className="lg:flex-row md:flex-row flex-col flex items-center justify-around bg-white p-8 rounded-lg">
         <div className="lg:w-[500px] md:w-[500px]">
           <img
             src="https://i.ibb.co/z6RNQw5/appointment-booking-mobile-concept.png"

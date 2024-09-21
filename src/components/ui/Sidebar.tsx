@@ -45,38 +45,35 @@ const Sidebar = () => {
 
   return (
     <div>
+      {/* Mobile Menu Button */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-full"
+        className="md:hidden fixed top-16 left-4 z-50 p-2 bg-blue-600 text-white rounded-full"
       >
         {isSidebarOpen ? <FaTimes /> : <FaBars />}
       </button>
+
+      {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-screen w-64 lg:pt-0 md:pt-0 pt-10 bg-gray-100 p-4 transition-transform duration-300 md:relative md:w-64 ${
+        className={`fixed top-0 left-0 h-screen w-64 pt-8 bg-gray-100 p-4 transition-transform duration-300 md:relative md:translate-x-0 md:w-64 z-40 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 z-40`}
+        }`}
       >
-        <div className="space-y-3 pt-8">
+        <div className="space-y-3">
+          {/* Room Management */}
           <div>
             <button
               onClick={() => toggleDropdown("roomManagement")}
               className="w-full flex items-center gap-1 text-left border text-blue-600 px-3 py-2 rounded-md text-base font-medium focus:outline-none"
             >
-              {openDropdown === "roomManagement" ? (
-                <FaAngleUp />
-              ) : (
-                <FaAngleDown />
-              )}{" "}
+              {openDropdown === "roomManagement" ? <FaAngleUp /> : <FaAngleDown />}
               Room Management
             </button>
             <div
               ref={roomManagementRef}
               style={{
-                height:
-                  openDropdown === "roomManagement"
-                    ? getHeight(roomManagementRef)
-                    : "0px",
+                height: openDropdown === "roomManagement" ? getHeight(roomManagementRef) : "0px",
               }}
               className="overflow-hidden transition-all duration-300"
             >
@@ -84,9 +81,7 @@ const Sidebar = () => {
                 <Link
                   to={`/${user?.role}/dashboard/create-room`}
                   className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/create-room`)
-                      ? "bg-blue-100"
-                      : ""
+                    isActiveRoute(`/${user?.role}/dashboard/create-room`) ? "bg-blue-100" : ""
                   }`}
                 >
                   Create Room
@@ -94,9 +89,7 @@ const Sidebar = () => {
                 <Link
                   to={`/${user?.role}/dashboard/get-room`}
                   className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/get-room`)
-                      ? "bg-blue-100"
-                      : ""
+                    isActiveRoute(`/${user?.role}/dashboard/get-room`) ? "bg-blue-100" : ""
                   }`}
                 >
                   Get All Rooms
@@ -105,25 +98,19 @@ const Sidebar = () => {
             </div>
           </div>
 
+          {/* Slot Management */}
           <div>
             <button
               onClick={() => toggleDropdown("slotManagement")}
               className="w-full flex items-center gap-1 text-left border text-blue-600 px-3 py-2 rounded-md text-base font-medium focus:outline-none"
             >
-              {openDropdown === "slotManagement" ? (
-                <FaAngleUp />
-              ) : (
-                <FaAngleDown />
-              )}{" "}
+              {openDropdown === "slotManagement" ? <FaAngleUp /> : <FaAngleDown />}
               Slot Management
             </button>
             <div
               ref={slotManagementRef}
               style={{
-                height:
-                  openDropdown === "slotManagement"
-                    ? getHeight(slotManagementRef)
-                    : "0px",
+                height: openDropdown === "slotManagement" ? getHeight(slotManagementRef) : "0px",
               }}
               className="overflow-hidden transition-all duration-300"
             >
@@ -131,9 +118,7 @@ const Sidebar = () => {
                 <Link
                   to={`/${user?.role}/dashboard/create-slot`}
                   className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/create-slot`)
-                      ? "bg-blue-100"
-                      : ""
+                    isActiveRoute(`/${user?.role}/dashboard/create-slot`) ? "bg-blue-100" : ""
                   }`}
                 >
                   Create Slot
@@ -141,9 +126,7 @@ const Sidebar = () => {
                 <Link
                   to={`/${user?.role}/dashboard/get-slot`}
                   className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/get-slot`)
-                      ? "bg-blue-100"
-                      : ""
+                    isActiveRoute(`/${user?.role}/dashboard/get-slot`) ? "bg-blue-100" : ""
                   }`}
                 >
                   Get All Slots
@@ -152,25 +135,19 @@ const Sidebar = () => {
             </div>
           </div>
 
+          {/* Book Management */}
           <div>
             <button
               onClick={() => toggleDropdown("bookManagement")}
               className="w-full flex items-center gap-1 text-left border text-blue-600 px-3 py-2 rounded-md text-base font-medium focus:outline-none"
             >
-              {openDropdown === "bookManagement" ? (
-                <FaAngleUp />
-              ) : (
-                <FaAngleDown />
-              )}{" "}
+              {openDropdown === "bookManagement" ? <FaAngleUp /> : <FaAngleDown />}
               Book Management
             </button>
             <div
               ref={bookManagementRef}
               style={{
-                height:
-                  openDropdown === "bookManagement"
-                    ? getHeight(bookManagementRef)
-                    : "0px",
+                height: openDropdown === "bookManagement" ? getHeight(bookManagementRef) : "0px",
               }}
               className="overflow-hidden transition-all duration-300"
             >
@@ -178,9 +155,7 @@ const Sidebar = () => {
                 <Link
                   to={`/${user?.role}/dashboard/bookings`}
                   className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/bookings`)
-                      ? "bg-blue-100"
-                      : ""
+                    isActiveRoute(`/${user?.role}/dashboard/bookings`) ? "bg-blue-100" : ""
                   }`}
                 >
                   All Bookings
@@ -189,25 +164,19 @@ const Sidebar = () => {
             </div>
           </div>
 
+          {/* User Management */}
           <div>
             <button
               onClick={() => toggleDropdown("userManagement")}
               className="w-full flex items-center gap-1 text-left border text-blue-600 px-3 py-2 rounded-md text-base font-medium focus:outline-none"
             >
-              {openDropdown === "userManagement" ? (
-                <FaAngleUp />
-              ) : (
-                <FaAngleDown />
-              )}{" "}
+              {openDropdown === "userManagement" ? <FaAngleUp /> : <FaAngleDown />}
               User Management
             </button>
             <div
               ref={bookManagementRef}
               style={{
-                height:
-                  openDropdown === "userManagement"
-                    ? getHeight(bookManagementRef)
-                    : "0px",
+                height: openDropdown === "userManagement" ? getHeight(bookManagementRef) : "0px",
               }}
               className="overflow-hidden transition-all duration-300"
             >
@@ -215,9 +184,7 @@ const Sidebar = () => {
                 <Link
                   to={`/${user?.role}/dashboard/allUser`}
                   className={`block text-blue-600 px-3 py-2 rounded-md text-sm font-medium ${
-                    isActiveRoute(`/${user?.role}/dashboard/allUser`)
-                      ? "bg-blue-100"
-                      : ""
+                    isActiveRoute(`/${user?.role}/dashboard/allUser`) ? "bg-blue-100" : ""
                   }`}
                 >
                   All Users

@@ -42,7 +42,7 @@ const Stepper = () => {
       <div className="flex justify-center mb-12">
         <div className="relative w-full lg:max-w-4xl">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-full border-t-4 border-gray-300 z-0"></div>
+            <div className="w-full border-t-2 border-gray-300 z-0"></div>
           </div>
 
           <div className="relative z-10 flex justify-between">
