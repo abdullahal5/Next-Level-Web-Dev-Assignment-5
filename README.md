@@ -1,50 +1,126 @@
-# React + TypeScript + Vite
+# Hotel Relax [Live](https://next-level-web-dev-assignment-5.vercel.app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p style="color: red; font-weight: bold;">
+    <strong>Note:</strong> Use the following credentials to access the admin and user features:
+</p>
+<ul>
+    <li><strong>Admin Credentials:</strong></li>
+    <ul>
+        <li><strong>Email:</strong> admin123@gmail.com</li>
+        <li><strong>Password:</strong> 12345678</li>
+    </ul>
+    <li><strong>User Credentials:</strong></li>
+    <ul>
+        <li><strong>Email:</strong> abdullahalfahin183@gmail.com</li>
+        <li><strong>Password:</strong> 12345678</li>
+    </ul>
+</ul>
 
-Currently, two official plugins are available:
+Our Hotel Relax simplifies the entire room booking process, allowing guests to effortlessly reserve accommodations that fit their preferences. With our intuitive and user-friendly interface, customers can find and book a room with ease, ensuring a smooth and enjoyable experience from start to finish. Whether searching for a cozy single room or a luxurious suite, our platform caters to all needs, making travel planning seamless and stress-free.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Prerequisites](#prerequisites)
+- [Technology](#technology)
+- [Installation](#installation)
+- [Features](#features)
+- [License](#license)
+- [Contact](#contact)
 
-- Configure the top-level `parserOptions` property like this:
+## Prerequisites
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Before you begin, ensure you have met the following requirements:
+
+- **[Node.js](https://nodejs.org/)** (version >= 20.11.1)
+- **[npm](https://www.npmjs.com/)** (version >= 9.8.0)
+- **[TypeScript](https://www.typescriptlang.org/)** (version >= 5.4.5)
+
+## Technology
+
+This project uses the following technologies:
+
+- **[reactjs]** : A frontend framework.
+- **[typescript]** : JavaScript with syntax for types.
+- **[redux]** : For state management
+- **[tailwindcss]** : For style react component
+- **[aamarpay]** : payment service, for paying booking
+
+## Installation
+
+Instructions on how to install the project.
+
+```sh
+# Clone the repository
+git clone https://github.com/abdullahal5/Next-Level-Web-Dev-Assignment-5.git
+
+# Navigate to the project directory
+cd Next-Level-Web-Dev-Assignment-5
+
+# Install dependencies
+npm install
+
+# Start the project
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Features →
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## User Features
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### User Registration and Authentication
+
+- **Sign Up and Log In:** Register and log in using email and password.
+
+### Room Search and Filtering
+
+- **Search Room:** Find rooms based on type, features and seats.
+- **Filter Options:** Refine search results by price range, and type.
+
+### Room Details and Booking
+
+- **View Room Details:** Access comprehensive information about each room, including images, descriptions, and specifications.
+- **Check Availability and Book:** Verify room availability and book.
+
+### Booking Management
+
+- **Manage Bookings:** View and manage bookings.
+
+### Pricing and Payment
+
+- **Secure Payment Processing:** Process payments securely with amaarpay payment methods.
+
+### Responsive Design
+
+- **Multi-Device Access:** Use the app on mobile, tablet, and desktop devices.
+
+## Admin Features
+
+### Admin Dashboard
+
+- **View Key Metrics:** Access metrics such as total users, rooms, and revenue.
+- **View Revenue of Each Room by Chart:** All Revenue of each room by a chart
+
+### Room Management
+
+- **Manage Listings:** Add, update, or remove room listings.
+- **Update Room Details:** Manage room availability, pricing, and features.
+
+### Booking Management
+
+- **Manage All Bookings:** View and handle all user bookings.
+- **Approve or Reject Requests:** Process booking requests.
+
+### User Management
+
+- **Assign Roles and Permissions:** Set different access levels for admin roles.
+
+## Contacts
+
+For any inquiries or support, please contact us:
+
+- **Email:** abdullahalfahin183@gmail.com
+- **Phone:** (+880) 1914049327
+- **Address:** Naraynaganj, Bangladesh
+
+Feel free to reach out for any questions or feedback regarding the Car Rental Web App. I'm here to help!
