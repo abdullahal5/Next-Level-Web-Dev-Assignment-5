@@ -123,4 +123,4 @@ For any inquiries or support, please contact us:
 - **Phone:** (+880) 1914049327
 - **Address:** Naraynaganj, Bangladesh
 
-Feel free to reach out for any questions or feedback regarding the Car Rental Web App. I'm here to help!
+Feel free to reach out for any questions or feedback regarding the Room Booking Web App. I'm here to help!
