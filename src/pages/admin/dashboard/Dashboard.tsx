@@ -66,8 +66,6 @@ const Dashboard = () => {
       totalSlots: item.totalSlots,
     })) || [];
 
-  console.log(DashboardData?.data.result);
-
   const keys = ["totalRevenue", "totalBookings", "totalSlots"];
 
   const colors = ["#8884d8", "#82ca9d", "#ff7300"];
