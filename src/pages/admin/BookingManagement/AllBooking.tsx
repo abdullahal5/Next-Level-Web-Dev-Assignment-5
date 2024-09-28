@@ -174,11 +174,11 @@ const AllBookings = () => {
     bookingsData?.data?.map((booking: TBooking) => {
       return {
         key: booking._id,
-        roomName: booking.room.name,
-        userName: booking.user.name,
-        date: booking.date[0],
-        time: booking.createdAt,
-        endTime: booking.slots.endTime || "N/A",
+        roomName: booking.room?.name,
+        userName: booking.user?.name,
+        date: booking?.date[0],
+        time: booking?.createdAt,
+        endTime: booking?.slots?.endTime || "N/A",
         status:
           booking.isConfirmed === "confirmed" ? "Confirmed" : "Unconfirmed",
       };

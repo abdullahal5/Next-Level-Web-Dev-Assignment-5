@@ -68,11 +68,11 @@ const MyBookings = () => {
   const tableData = mybooking?.data.flatMap((booking: Daum) =>
     booking.slots.map((slot: Slot) => ({
       key: `${booking._id}-${slot._id}`,
-      roomName: booking.room.name,
-      date: slot.date,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
-      status: booking.isConfirmed,
+      roomName: booking?.room?.name,
+      date: slot?.date,
+      startTime: slot?.startTime,
+      endTime: slot?.endTime,
+      status: booking?.isConfirmed,
     }))
   );
 

@@ -1,8 +1,10 @@
+import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 import Titlebar from "../../components/ui/Titlebar";
 
 const AboutUs = () => {
   return (
     <div className="bg-gray-50">
+      <ScrollToTopButton />
       <div className="max-w-7xl mx-auto p-6">
         <div className="relative bg-[url('https://i.ibb.co/mbKGYHg/competent-team-with-thumbs-up.jpg')] bg-cover w-full h-[500px] rounded-lg bg-fixed py-10">
           <div className="absolute inset-0 bg-black/60 rounded-lg"></div>

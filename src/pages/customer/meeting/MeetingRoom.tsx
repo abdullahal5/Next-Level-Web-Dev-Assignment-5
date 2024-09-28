@@ -6,6 +6,7 @@ import RoomCard from "../../../components/ui/RoomCard";
 import { useGetAllRoomsQuery } from "../../../redux/features/rooms/roomApi";
 import { RoomData } from "../../../types/room.types";
 import { FaSpinner } from "react-icons/fa";
+import ScrollToTopButton from "../../../components/shared/ScrollToTopButton";
 
 const MeetingRoom = () => {
   const [price, setPrice] = useState(0);
@@ -62,6 +63,7 @@ const MeetingRoom = () => {
 
   return (
     <div className="max-w-7xl lg:mx-auto md:mx-5 mx-5">
+      <ScrollToTopButton />
       <div className="flex lg:flex-row md:flex-row flex-col items-start gap-3 my-3 pt-5">
         <div className="lg:w-80 md:w-80 border shadow sticky p-3 rounded-md mx-auto">
           <div className="pb-3 flex lg:flex-row md:flex-row flex-col items-center justify-between">

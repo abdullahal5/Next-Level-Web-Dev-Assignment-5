@@ -2,6 +2,7 @@ import Banner from "../../components/home/Banner";
 import FeaturedRooms from "../../components/home/FeaturedRooms";
 import Service from "../../components/home/Service";
 import WhyChooseUs from "../../components/home/WhyChooseUs";
+import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Service />
       <FeaturedRooms />
       <WhyChooseUs />
+      <ScrollToTopButton />
     </div>
   );
 };

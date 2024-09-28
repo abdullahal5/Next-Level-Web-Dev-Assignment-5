@@ -117,7 +117,7 @@ const Checkout = () => {
     if (res?.data) {
       setLoading(false);
       dispatch(clearBooking());
-    }
+    } 
   };
   return (
     <div className="max-w-7xl mx-auto">

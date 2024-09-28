@@ -7,6 +7,7 @@ import emailjs from "@emailjs/browser";
 import { FieldValues } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "sonner";
+import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters long"),
@@ -36,6 +37,7 @@ const ContactUs = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen rounded-md bg-gray-100">
+      <ScrollToTopButton />
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
           Contact Us
