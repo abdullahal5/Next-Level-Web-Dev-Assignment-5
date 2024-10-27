@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Conference Room A",
+    "images": [
+      "https://i.ibb.co/Hp1Yvbm/elegant-hotel-room-with-window-1203-1492.jpg",
+      "https://i.ibb.co/Ms4CRrg/tidy-hotel-room-with-brown-curtains-1203-1493.jpg",
+      "https://i.ibb.co/n3Q6BDm/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2723.jpg",
+      "https://i.ibb.co/pnMhRzD/blurred-view-bedroom-with-rug-1203-1466.jpg",
+      "https://i.ibb.co/ngNb1j9/modern-luxury-bedroom-suite-bathroom-105762-1791.jpg",
+      "https://i.ibb.co/ZH7w8nt/3d-rendering-luxury-bedroom-suite-resort-hotel-with-twin-bed-living-105762-2018.jpg",
+      "https://i.ibb.co/BcsPP4r/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2347.jpg"
+    ],
+    "roomNo": 101,
+    "capacity": 50,
+    "floorNo": 1,
+    "pricePerSlot": 150,
+    "amenities": ["Projector", "Whiteboard", "WiFi"],
+    "isDeleted": false
+  },
+  {
+    "name": "Meeting Room B",
+    "images": [
+      "https://i.ibb.co/XX1jYRn/mother-daughter-using-digital-tablet-bedroom-1170-2785.jpg",
+      "https://i.ibb.co/qgQFyRB/hotel-room-luxury-resort-53876-138105.jpg",
+      "https://i.ibb.co/tH4ZRds/3d-rendering-modern-luxury-bedroom-suite-bathroom-105762-1936.jpg",
+      "https://i.ibb.co/LNyM5mS/comfort-pillow-bed-decoration-interior-74190-6259.jpg",
+      "https://i.ibb.co/Qr28Tdh/pillow-bed-74190-6082.jpg",
+      "https://i.ibb.co/QQMrhRq/bedroom-with-bed-chair-front-sliding-glass-door-1340-25294.jpg",
+      "https://i.ibb.co/mDJQ1CD/double-bed-seen-from-foot-bed-1203-42.jpg"
+    ],
+    "roomNo": 102,
+    "capacity": 30,
+    "floorNo": 1,
+    "pricePerSlot": 100,
+    "amenities": ["TV", "Video Conference", "WiFi"],
+    "isDeleted": false
+  },
+  {
+    "name": "Training Room C",
+    "images": [
+      "https://i.ibb.co/cYRW8yR/nice-lit-lamp-table-1203-546.jpg",
+      "https://i.ibb.co/Rvt6dCL/pillow-bed-1203-3064.jpg",
+      "https://i.ibb.co/txkW35F/photo-is-must-everyday-work-ai-generated-best-wonderful-photo-1088224-251071.jpg",
+      "https://i.ibb.co/2PrqLKs/smart-hotel-room-connected-amenities-iot-hospitality-1168612-370615.jpg",
+      "https://i.ibb.co/D90tb2Q/interior-design-bedroom-with-modern-decoration-181624-45973.jpg",
+      "https://i.ibb.co/9V3NQDv/pillow-bed-74190-2140.jpg",
+      "https://i.ibb.co/Hp1Yvbm/elegant-hotel-room-with-window-1203-1492.jpg"
+    ],
+    "roomNo": 201,
+    "capacity": 60,
+    "floorNo": 2,
+    "pricePerSlot": 200,
+    "amenities": ["Projector", "Speakers", "WiFi"],
+    "isDeleted": false
+  },
+  {
+    "name": "Board Room D",
+    "images": [
+      "https://i.ibb.co/Ms4CRrg/tidy-hotel-room-with-brown-curtains-1203-1493.jpg",
+      "https://i.ibb.co/n3Q6BDm/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2723.jpg",
+      "https://i.ibb.co/pnMhRzD/blurred-view-bedroom-with-rug-1203-1466.jpg",
+      "https://i.ibb.co/ngNb1j9/modern-luxury-bedroom-suite-bathroom-105762-1791.jpg",
+      "https://i.ibb.co/ZH7w8nt/3d-rendering-luxury-bedroom-suite-resort-hotel-with-twin-bed-living-105762-2018.jpg",
+      "https://i.ibb.co/BcsPP4r/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2347.jpg",
+      "https://i.ibb.co/XX1jYRn/mother-daughter-using-digital-tablet-bedroom-1170-2785.jpg"
+    ],
+    "roomNo": 202,
+    "capacity": 20,
+    "floorNo": 2,
+    "pricePerSlot": 120,
+    "amenities": ["TV", "Video Conference", "Whiteboard"],
+    "isDeleted": false
+  },
+  {
+    "name": "Conference Room E",
+    "images": [
+      "https://i.ibb.co/qgQFyRB/hotel-room-luxury-resort-53876-138105.jpg",
+      "https://i.ibb.co/tH4ZRds/3d-rendering-modern-luxury-bedroom-suite-bathroom-105762-1936.jpg",
+      "https://i.ibb.co/LNyM5mS/comfort-pillow-bed-decoration-interior-74190-6259.jpg",
+      "https://i.ibb.co/Qr28Tdh/pillow-bed-74190-6082.jpg",
+      "https://i.ibb.co/QQMrhRq/bedroom-with-bed-chair-front-sliding-glass-door-1340-25294.jpg",
+      "https://i.ibb.co/mDJQ1CD/double-bed-seen-from-foot-bed-1203-42.jpg",
+      "https://i.ibb.co/cYRW8yR/nice-lit-lamp-table-1203-546.jpg"
+    ],
+    "roomNo": 301,
+    "capacity": 70,
+    "floorNo": 3,
+    "pricePerSlot": 250,
+    "amenities": ["Projector", "Whiteboard", "WiFi", "Coffee Machine"],
+    "isDeleted": false
+  },
+  {
+    "name": "Meeting Room F",
+    "images": [
+      "https://i.ibb.co/Rvt6dCL/pillow-bed-1203-3064.jpg",
+      "https://i.ibb.co/txkW35F/photo-is-must-everyday-work-ai-generated-best-wonderful-photo-1088224-251071.jpg",
+      "https://i.ibb.co/2PrqLKs/smart-hotel-room-connected-amenities-iot-hospitality-1168612-370615.jpg",
+      "https://i.ibb.co/D90tb2Q/interior-design-bedroom-with-modern-decoration-181624-45973.jpg",
+      "https://i.ibb.co/9V3NQDv/pillow-bed-74190-2140.jpg",
+      "https://i.ibb.co/Hp1Yvbm/elegant-hotel-room-with-window-1203-1492.jpg",
+      "https://i.ibb.co/Ms4CRrg/tidy-hotel-room-with-brown-curtains-1203-1493.jpg"
+    ],
+    "roomNo": 302,
+    "capacity": 25,
+    "floorNo": 3,
+    "pricePerSlot": 90,
+    "amenities": ["TV", "Video Conference", "WiFi"],
+    "isDeleted": false
+  },
+  {
+    "name": "Training Room G",
+    "images": [
+      "https://i.ibb.co/n3Q6BDm/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2723.jpg",
+      "https://i.ibb.co/pnMhRzD/blurred-view-bedroom-with-rug-1203-1466.jpg",
+      "https://i.ibb.co/ngNb1j9/modern-luxury-bedroom-suite-bathroom-105762-1791.jpg",
+      "https://i.ibb.co/ZH7w8nt/3d-rendering-luxury-bedroom-suite-resort-hotel-with-twin-bed-living-105762-2018.jpg",
+      "https://i.ibb.co/BcsPP4r/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2347.jpg",
+      "https://i.ibb.co/XX1jYRn/mother-daughter-using-digital-tablet-bedroom-1170-2785.jpg",
+      "https://i.ibb.co/qgQFyRB/hotel-room-luxury-resort-53876-138105.jpg"
+    ],
+    "roomNo": 303,
+    "capacity": 80,
+    "floorNo": 3,
+    "pricePerSlot": 300,
+    "amenities": ["Projector", "Speakers", "Whiteboard", "WiFi"],
+    "isDeleted": false
+  },
+  {
+    "name": "Board Room H",
+    "images": [
+      "https://i.ibb.co/tH4ZRds/3d-rendering-modern-luxury-bedroom-suite-bathroom-105762-1936.jpg",
+      "https://i.ibb.co/LNyM5mS/comfort-pillow-bed-decoration-interior-74190-6259.jpg",
+      "https://i.ibb.co/Qr28Tdh/pillow-bed-74190-6082.jpg",
+      "https://i.ibb.co/QQMrhRq/bedroom-with-bed-chair-front-sliding-glass-door-1340-25294.jpg",
+      "https://i.ibb.co/mDJQ1CD/double-bed-seen-from-foot-bed-1203-42.jpg",
+      "https://i.ibb.co/cYRW8yR/nice-lit-lamp-table-1203-546.jpg",
+      "https://i.ibb.co/Rvt6dCL/pillow-bed-1203-3064.jpg"
+    ],
+    "roomNo": 304,
+    "capacity": 40,
+    "floorNo": 3,
+    "pricePerSlot": 180,
+    "amenities": ["Projector", "Speakers", "WiFi"],
+    "isDeleted": false
+  },
+  {
+    "name": "Conference Room I",
+    "images": [
+      "https://i.ibb.co/txkW35F/photo-is-must-everyday-work-ai-generated-best-wonderful-photo-1088224-251071.jpg",
+      "https://i.ibb.co/2PrqLKs/smart-hotel-room-connected-amenities-iot-hospitality-1168612-370615.jpg",
+      "https://i.ibb.co/D90tb2Q/interior-design-bedroom-with-modern-decoration-181624-45973.jpg",
+      "https://i.ibb.co/9V3NQDv/pillow-bed-74190-2140.jpg",
+      "https://i.ibb.co/Hp1Yvbm/elegant-hotel-room-with-window-1203-1492.jpg",
+      "https://i.ibb.co/Ms4CRrg/tidy-hotel-room-with-brown-curtains-1203-1493.jpg",
+      "https://i.ibb.co/n3Q6BDm/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2723.jpg"
+    ],
+    "roomNo": 401,
+    "capacity": 100,
+    "floorNo": 4,
+    "pricePerSlot": 350,
+    "amenities": ["Projector", "Whiteboard", "WiFi", "Coffee Machine"],
+    "isDeleted": false
+  },
+  {
+    "name": "Meeting Room J",
+    "images": [
+      "https://i.ibb.co/pnMhRzD/blurred-view-bedroom-with-rug-1203-1466.jpg",
+      "https://i.ibb.co/ngNb1j9/modern-luxury-bedroom-suite-bathroom-105762-1791.jpg",
+      "https://i.ibb.co/ZH7w8nt/3d-rendering-luxury-bedroom-suite-resort-hotel-with-twin-bed-living-105762-2018.jpg",
+      "https://i.ibb.co/BcsPP4r/bangkok-thailand-august-12-2016-beautiful-luxury-bedroom-int-1203-2347.jpg",
+      "https://i.ibb.co/XX1jYRn/mother-daughter-using-digital-tablet-bedroom-1170-2785.jpg",
+      "https://i.ibb.co/qgQFyRB/hotel-room-luxury-resort-53876-138105.jpg",
+      "https://i.ibb.co/tH4ZRds/3d-rendering-modern-luxury-bedroom-suite-bathroom-105762-1936.jpg"
+    ],
+    "roomNo": 402,
+    "capacity": 35,
+    "floorNo": 4,
+    "pricePerSlot": 110,
+    "amenities": ["TV", "Video Conference", "Whiteboard"],
+    "isDeleted": false
+  }
+]
