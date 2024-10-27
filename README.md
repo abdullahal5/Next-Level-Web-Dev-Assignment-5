@@ -1,4 +1,4 @@
-# Hotel Relax [Live](https://next-level-web-dev-assignment-5.vercel.app)
+# Hotel Relax [Live](https://next-level-web-dev-assignment-5-main-4afc1vpte.vercel.app)
 
 <p style="color: red; font-weight: bold;">
     <strong>Note:</strong> Use the following credentials to access the admin and user features:
